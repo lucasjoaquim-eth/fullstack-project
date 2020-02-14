@@ -1,5 +1,10 @@
-<div *ngFor="let event of events">
-    Theme: {{event.theme}}
-    <br> Place: {{event.place}}
-    <hr>
-</div>
+<mat-card class="event-card">
+    <mat-list>
+        <h3 mat-subheader>Events</h3>
+        <mat-list-item *ngFor="let event of events">
+            Theme: {{event.theme}}
+            <br> Place: {{event.place}}
+            <mat-divider></mat-divider>
+        </mat-list-item>
+    </mat-list>
+</mat-card>

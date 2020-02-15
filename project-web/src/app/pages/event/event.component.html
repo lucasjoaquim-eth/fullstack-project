@@ -1,10 +1,19 @@
-<mat-card class="event-card">
-    <mat-list>
-        <h3 mat-subheader>Events</h3>
-        <mat-list-item *ngFor="let event of events">
-            Theme: {{event.theme}}
-            <br> Place: {{event.place}}
-            <mat-divider></mat-divider>
-        </mat-list-item>
-    </mat-list>
+<mat-card class="card-event mat-elevation-z2">
+    <div fxLayout="column" fxLayoutAlign="start start">
+        <div class="card-header" fxLayout="row" fxFill>
+            <div aling class="card-header-titulo" fxFlex="80">
+                <h2>{{title}}</h2>
+            </div>
+        </div>
+
+        <div class="card-conteudo" fxFill>
+            <div fxLayout="row" *ngFor="let event of events">
+                <mat-list-item>
+                    <mat-divider></mat-divider>
+                    <span fxFlex="20"> Theme: {{event.theme}}
+                    <br> Place: {{event.place}} </span>
+                </mat-list-item>
+            </div>
+        </div>
+    </div>
 </mat-card>

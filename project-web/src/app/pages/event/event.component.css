@@ -1,3 +1,19 @@
-.event-card {
-  max-width: 400px;
+.card-event {
+    height: 100%;
+    width: 50%;
+    color: black;
+    position: center;
+}
+
+.card-header-titulo {
+    padding: 14px;
+}
+
+.card-conteudo {
+    padding-top: 10px;
+}
+
+.card-conteudo div {
+    color: black;
+    padding: 8px 12px 0px 12px;
 }

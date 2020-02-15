@@ -1,3 +1,19 @@
-<mat-toolbar color="primary" id="navbar-principal">
-              <span>Events</span>
+<mat-toolbar color="primary" id="navbar-principal" class="mat-elevation-z4">
+    <span>Project WebApi</span>
+    <span class="fill-space"></span>
+    <button mat-button [matMenuTriggerFor]="menu">Eventos</button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item></button>
+        <button mat-menu-item></button>
+    </mat-menu>
+    <button mat-button [matMenuTriggerFor]="menu">Palestrantes</button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item></button>
+        <button mat-menu-item></button>
+    </mat-menu>
+    <button mat-button [matMenuTriggerFor]="menu">Contatos</button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item></button>
+        <button mat-menu-item></button>
+    </mat-menu>
 </mat-toolbar>

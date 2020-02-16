@@ -17,3 +17,17 @@
     color: black;
     padding: 8px 12px 0px 12px;
 }
+
+table {
+    width: 100%;
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+td,
+th {
+    width: 25%;
+}

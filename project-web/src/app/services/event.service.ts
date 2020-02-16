@@ -22,6 +22,6 @@ export class EventService {
   }
 
   list(): Observable<Event[]> {
-    return this.http.get<Event[]>(`${this.endpoint}/event`);
+    return this.http.get<Event[]>(`${this.endpoint}`);
   }
 }

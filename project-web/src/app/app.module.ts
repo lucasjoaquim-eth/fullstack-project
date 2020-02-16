@@ -11,18 +11,19 @@ import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatSortModule } from "@angular/material/sort";
 import { MatTableModule } from "@angular/material/table";
 import { MatInputModule } from "@angular/material/input";
-
+import { MatDialogModule } from "@angular/material/dialog";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { EventComponent } from "./pages/event/event.component";
 import { NavComponent } from "./pages/nav/nav.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-
+import { EventService } from "./services/event.service";
 @NgModule({
   declarations: [AppComponent, EventComponent, NavComponent],
   exports: [],
   imports: [
+    MatDialogModule,
     MatInputModule,
     MatTableModule,
     MatSortModule,
@@ -38,7 +39,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     MatMenuModule,
     MatButtonModule
   ],
-  providers: [],
+  providers: [EventService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

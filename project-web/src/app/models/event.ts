@@ -3,7 +3,7 @@ export interface Event {
   place: string;
   date: string;
   theme: string;
-  amountPeople: string;
+  amountPeople: number;
   lot: string;
   imagemURL: string;
 }

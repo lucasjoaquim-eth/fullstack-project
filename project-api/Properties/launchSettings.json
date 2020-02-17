@@ -17,7 +17,7 @@
                 "ASPNETCORE_ENVIRONMENT": "Development"
             }
         },
-        "Project.API": {
+        "project.api": {
             "commandName": "Project",
             "launchBrowser": false,
             "launchUrl": "weatherforecast",

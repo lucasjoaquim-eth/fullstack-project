@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Project.API.Data;
+using project.api.Data;
 
-namespace Project.API.Migrations
+namespace project.api.Migrations
 {
     [DbContext(typeof(DataContext))]
     [Migration("20200213010943_init")]
@@ -17,7 +17,7 @@ namespace Project.API.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.0.0");
 
-            modelBuilder.Entity("Project.API.Models.Event", b =>
+            modelBuilder.Entity("project.api.Models.Event", b =>
                 {
                     b.Property<int>("EventId")
                         .ValueGeneratedOnAdd()

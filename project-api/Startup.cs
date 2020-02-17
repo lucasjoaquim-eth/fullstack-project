@@ -13,10 +13,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Project.API.Data;
+using project.api.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Project.API
+namespace project.api
 {
     public class Startup
     {
@@ -48,7 +48,9 @@ namespace Project.API
 
             //app.UseHttpsRedirection();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-            
+
+            app.UseStaticFiles();
+
             app.UseRouting();
 
             app.UseAuthorization();

@@ -2,14 +2,14 @@ using System;
 using System.Diagnostics;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using Project.API.Models;
+using project.api.Models;
 using System.Linq;
-using Project.API.Data;
+using project.api.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
-namespace Project.API.Controllers
+namespace project.api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

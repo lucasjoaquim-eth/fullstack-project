@@ -12,6 +12,8 @@ import { MatSortModule } from "@angular/material/sort";
 import { MatTableModule } from "@angular/material/table";
 import { MatInputModule } from "@angular/material/input";
 import { MatDialogModule } from "@angular/material/dialog";
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -23,6 +25,7 @@ import { EventService } from "./services/event.service";
   declarations: [AppComponent, EventComponent, NavComponent],
   exports: [],
   imports: [
+    MatSlideToggleModule,
     MatDialogModule,
     MatInputModule,
     MatTableModule,

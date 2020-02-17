@@ -1,4 +1,4 @@
-namespace Project.API.Models
+namespace project.api.Models
 {
     public class Event
     {

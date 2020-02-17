@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Project.API.Models;
+using project.api.Models;
 
 
-namespace Project.API.Controllers
+namespace project.api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

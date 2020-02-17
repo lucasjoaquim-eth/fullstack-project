@@ -2,10 +2,8 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
-import { MatDialog } from "@angular/material/dialog";
-import { HttpClient } from "@angular/common/http";
-import { Event } from "src/app/models/event";
 import { EventService } from "src/app/services/event.service";
+import { ThemePalette } from "@angular/material/core";
 
 @Component({
   selector: "app-event",
@@ -13,39 +11,36 @@ import { EventService } from "src/app/services/event.service";
   styleUrls: ["./event.component.css"]
 })
 export class EventComponent implements OnInit {
-  listEvent: Event[];
   dataSource: MatTableDataSource<Event>;
 
-  columns: string[] = [
-    "eventId",
-    "place",
-    "date",
-    "theme",
-    "amountPeople",
-    "lot",
-    "imagemURL"
-  ];
+  color: ThemePalette = "primary";
+  checked = false;
+  disabled = false;
+
   displayedColumns: string[] = [
+    "imagemURL",
     "eventId",
     "place",
     "date",
     "theme",
     "amountPeople",
-    "lot",
-    "imagemURL"
+    "lot"
   ];
 
-  constructor(private dialog: MatDialog, private eventService: EventService) {}
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+
+  constructor(private eventService: EventService) {}
 
   ngOnInit() {
     this.dataSource = new MatTableDataSource<Event>([]);
-    this.consultarEvent();
-    console.log(this.dataSource);
+    this.consultEvent();
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
-  consultarEvent(): void {
+  consultEvent(): void {
     this.eventService.list().subscribe(
       data => {
-        this.listEvent = data;
         this.dataSource.data = data;
         console.log(this.dataSource.data);
       },
@@ -54,30 +49,19 @@ export class EventComponent implements OnInit {
       }
     );
   }
-}
-/**  Copyright 2019 Google LLC. All Rights Reserved.
-    Use of this source code is governed by an MIT-style license that
-    can be found in the LICENSE file at http://angular.io/license */
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
 
-/*
-import { Component, OnInit, ViewChild } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-
-@Component({
-  selector: "app-event",
-  templateUrl: "./event.component.html",
-  styleUrls: ["./event.component.css"]
-})
-export class EventComponent implements OnInit {
-  events: any;
-  title = "Welcome to Events";
-
-  constructor(private http: HttpClient) {}
-
-  ngOnInit() {
-    this.getEvents();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
-
+  invertChecked() {
+    this.checked = !this.checked;
+  }
+}
+/*
   getEvents() {
     this.http.get("http://localhost:5000/api/Event").subscribe(
       response => {

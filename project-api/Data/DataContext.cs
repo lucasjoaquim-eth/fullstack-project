@@ -1,11 +1,11 @@
 using Microsoft.EntityFrameworkCore;
-using Project.API.Models;
+using project.api.Models;
 
-namespace Project.API.Data
+namespace project.api.Data
 {
     public class DataContext : DbContext
     {
-        public DataContext(DbContextOptions<DataContext> options) : base(options){}
+        public DataContext(DbContextOptions<DataContext> options) : base(options) { }
         public DbSet<Event> Events { get; set; }
     }
 }

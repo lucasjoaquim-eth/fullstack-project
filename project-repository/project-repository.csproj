@@ -1,12 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <ItemGroup>
-    <ProjectReference Include="..\project-domain\project-domain.csproj" />
+    <ProjectReference Include="..\project-domain\project-domain.csproj"/>
   </ItemGroup>
-
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.0"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.0.0"/>
+  </ItemGroup>
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <RootNamespace>project_repository</RootNamespace>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <RootNamespace>project.repository</RootNamespace>
   </PropertyGroup>
-
 </Project>

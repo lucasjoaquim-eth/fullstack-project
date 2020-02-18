@@ -13,8 +13,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using project.api.Data;
 using Microsoft.EntityFrameworkCore;
+using project.repository.data;
+using project_repository;
 
 namespace project.api
 {
@@ -31,9 +32,10 @@ namespace project.api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContext<DataContext>(
+            services.AddDbContext<ProjectContext>(
                 x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection"))
             );
+            services.AddScoped<iProjectRepository, ProjectRepository>();
             services.AddMvc();
             services.AddCors();
         }

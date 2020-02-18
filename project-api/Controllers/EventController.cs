@@ -1,13 +1,15 @@
+using Microsoft.VisualBasic.CompilerServices;
 using System;
 using System.Diagnostics;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using project.api.Models;
 using System.Linq;
-using project.api.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using project.repository.data;
+using project_repository;
+using project.domain;
 
 namespace project.api.Controllers
 {
@@ -15,10 +17,11 @@ namespace project.api.Controllers
     [Route("api/[controller]")]
     public class EventController : ControllerBase
     {
-        public readonly DataContext _context;
-        public EventController(DataContext context)
+        private readonly iProjectRepository _repository;
+
+        public EventController(iProjectRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         [HttpGet]
@@ -26,28 +29,103 @@ namespace project.api.Controllers
         {
             try
             {
-                var results = await _context.Events.ToListAsync();
+                var results = await _repository.GetAllEventAsync(true);
                 return Ok(results);
             }
             catch (System.Exception)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, "Banco de dados Falhou");
             }
-
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
+        [HttpGet("{EventId}")]
+        public async Task<IActionResult> Get(int EventId)
         {
             try
             {
-                var results = await _context.Events.FirstOrDefaultAsync(x => x.EventId == id);
+                var results = await _repository.GetEventAsyncById(EventId, true);
                 return Ok(results);
             }
             catch (System.Exception)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, "Banco de dados Falhou");
             }
+        }
+
+        [HttpGet("getByTheme/{theme}")]
+        public async Task<IActionResult> Get(string theme)
+        {
+            try
+            {
+                var results = await _repository.GetAllEventAsyncByTheme(theme, true);
+                return Ok(results);
+            }
+            catch (System.Exception)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Banco de dados Falhou");
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post(Event modelEvent)
+        {
+            try
+            {
+                _repository.Add(modelEvent);
+                if (await _repository.SaveChangesAsync())
+                {
+                    return Created($"/api/event/{modelEvent.Id}", modelEvent);
+                }
+            }
+            catch (System.Exception)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Banco de dados Falhou");
+            }
+            return BadRequest();
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Put(int EventId, Event modelEvent)
+        {
+            try
+            {
+                var Event = await _repository.GetEventAsyncById(EventId, false);
+                if (Event == null)
+                {
+                    return NotFound();
+                }
+                if (await _repository.SaveChangesAsync())
+                {
+                    return Created($"/api/event/{modelEvent.Id}", modelEvent);
+                }
+            }
+            catch (System.Exception)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Banco de dados Falhou");
+            }
+            return BadRequest();
+        }
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int EventId, Event modelEvent)
+        {
+            try
+            {
+                var Event = await _repository.GetEventAsyncById(EventId, false);
+                if (Event == null)
+                {
+                    return NotFound();
+                }
+                _repository.delete(Event);
+                if (await _repository.SaveChangesAsync())
+                {
+                    return Ok();
+                }
+            }
+            catch (System.Exception)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Banco de dados Falhou");
+            }
+            return BadRequest();
         }
     }
 }

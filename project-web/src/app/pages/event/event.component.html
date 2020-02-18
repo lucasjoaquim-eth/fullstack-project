@@ -3,7 +3,7 @@
 
 <mat-form-field>
     <mat-label>Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. São Paulo">
+    <input matInput (click)="applyFilter($event)" placeholder="Ex. São Paulo">
 </mat-form-field>
 
 <div class="mat-elevation-z8" *ngIf="!(checked)">

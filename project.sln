@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "project-api", "project-api\project-api.csproj", "{CBA7571C-C290-4F07-BD23-BD2C0028CA36}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "project.api", "project-api\project-api.csproj", "{CBA7571C-C290-4F07-BD23-BD2C0028CA36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "project-repository", "project-repository\project-repository.csproj", "{F9A1C011-6EB4-44BA-B3D5-8C30CBCF4D01}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "project.repository", "project-repository\project-repository.csproj", "{F9A1C011-6EB4-44BA-B3D5-8C30CBCF4D01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "project-domain", "project-domain\project-domain.csproj", "{8B1C6907-36B4-4FDF-9A8B-396C9E939B79}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "project.domain", "project-domain\project-domain.csproj", "{8B1C6907-36B4-4FDF-9A8B-396C9E939B79}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

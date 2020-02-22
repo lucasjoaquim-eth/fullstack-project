@@ -17,7 +17,6 @@ namespace project.repository.Migrations
                     Date = table.Column<DateTime>(nullable: false),
                     Theme = table.Column<string>(nullable: true),
                     AmountPeople = table.Column<int>(nullable: false),
-                    Lot = table.Column<string>(nullable: true),
                     ImagemUrl = table.Column<string>(nullable: true),
                     Phone = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true)

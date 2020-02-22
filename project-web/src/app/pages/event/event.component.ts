@@ -18,13 +18,12 @@ export class EventComponent implements OnInit {
   disabled = false;
 
   displayedColumns: string[] = [
-    "imagemURL",
-    "eventId",
+    "id",
     "place",
     "date",
     "theme",
     "amountPeople",
-    "lot"
+    "imagemUrl"
   ];
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;

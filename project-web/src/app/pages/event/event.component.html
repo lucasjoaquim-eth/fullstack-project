@@ -3,20 +3,20 @@
 
 <mat-form-field>
     <mat-label>Filter</mat-label>
-    <input matInput (click)="applyFilter($event)" placeholder="Ex. São Paulo">
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. São Paulo">
 </mat-form-field>
 
-<div class="mat-elevation-z8" *ngIf="!(checked)">
+<div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" matSort>
-        <ng-container matColumnDef="eventId">
+        <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-            <td mat-cell *matCellDef="let row"> {{row.eventId}} </td>
+            <td mat-cell *matCellDef="let row"> {{row.id}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="imagemURL">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> ImagemURL </th>
+        <ng-container matColumnDef="imagemUrl">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> imagemUrl </th>
             <td mat-cell *matCellDef="let row">
-                <img src="http://localhost:5000/img/{{row.imagemURL}}">
+                <img src="http://localhost:5000/img/{{row.imagemUrl}}">
             </td>
         </ng-container>
 
@@ -38,11 +38,6 @@
         <ng-container matColumnDef="amountPeople">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> People </th>
             <td mat-cell *matCellDef="let row"> {{row.amountPeople}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="lot">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Lot </th>
-            <td mat-cell *matCellDef="let row"> {{row.lot}} </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -34,9 +34,6 @@ namespace project.repository.Migrations
                     b.Property<string>("ImagemUrl")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Lot")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Phone")
                         .HasColumnType("TEXT");
 

@@ -10,6 +10,6 @@ namespace project.domain
         public DateTime? DateBegin { get; set; }
         public DateTime? DateEnd { get; set; }
         public int EventId { get; set; }
-        public Event Event { get; set; }
+        public Event Event { get;  }
     }
 }

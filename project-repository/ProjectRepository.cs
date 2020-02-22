@@ -13,6 +13,7 @@ namespace project_repository
         public ProjectRepository(ProjectContext context)
         {
             _context = context;
+            _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
         //ALL

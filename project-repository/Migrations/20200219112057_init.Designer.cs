@@ -9,7 +9,7 @@ using project.repository.data;
 namespace project.repository.Migrations
 {
     [DbContext(typeof(ProjectContext))]
-    [Migration("20200218032738_init")]
+    [Migration("20200219112057_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,9 +34,6 @@ namespace project.repository.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ImagemUrl")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Lot")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Phone")

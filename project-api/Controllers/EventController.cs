@@ -17,11 +17,13 @@ namespace project.api.Controllers
     [Route("api/[controller]")]
     public class EventController : ControllerBase
     {
-        private readonly iEventRepository _repository;
+        private readonly iEventRepository _eventRepository;
+        private readonly iProjectRepository _projectRepository;
 
-        public EventController(iEventRepository repository)
+        public EventController(iEventRepository eventRepository, iProjectRepository projectRepository)
         {
-            _repository = repository;
+            _eventRepository = eventRepository;
+            _projectRepository = projectRepository;
         }
 
         [HttpGet]
@@ -29,7 +31,7 @@ namespace project.api.Controllers
         {
             try
             {
-                var results = await _repository.GetAllEventAsync(true);
+                var results = await _eventRepository.GetAllEventAsync(true);
                 return Ok(results);
             }
             catch (System.Exception)
@@ -43,7 +45,7 @@ namespace project.api.Controllers
         {
             try
             {
-                var results = await _repository.GetEventAsyncById(EventId, true);
+                var results = await _eventRepository.GetEventAsyncById(EventId, true);
                 return Ok(results);
             }
             catch (System.Exception)
@@ -57,7 +59,7 @@ namespace project.api.Controllers
         {
             try
             {
-                var results = await _repository.GetAllEventAsyncByTheme(theme, true);
+                var results = await _eventRepository.GetAllEventAsyncByTheme(theme, true);
                 return Ok(results);
             }
             catch (System.Exception)
@@ -71,8 +73,8 @@ namespace project.api.Controllers
         {
             try
             {
-                _repository.Add(modelEvent);
-                if (await _repository.SaveChangesAsync())
+                _projectRepository.Add(modelEvent);
+                if (await _projectRepository.SaveChangesAsync())
                 {
                     return Created($"/api/event/{modelEvent.Id}", modelEvent);
                 }
@@ -89,12 +91,12 @@ namespace project.api.Controllers
         {
             try
             {
-                var Event = await _repository.GetEventAsyncById(EventId, false);
+                var Event = await _eventRepository.GetEventAsyncById(EventId, false);
                 if (Event == null)
                 {
                     return NotFound();
                 }
-                if (await _repository.SaveChangesAsync())
+                if (await _projectRepository.SaveChangesAsync())
                 {
                     return Created($"/api/event/{modelEvent.Id}", modelEvent);
                 }
@@ -110,13 +112,13 @@ namespace project.api.Controllers
         {
             try
             {
-                var Event = await _repository.GetEventAsyncById(EventId, false);
+                var Event = await _eventRepository.GetEventAsyncById(EventId, false);
                 if (Event == null)
                 {
                     return NotFound();
                 }
-                _repository.delete(Event);
-                if (await _repository.SaveChangesAsync())
+                _projectRepository.delete(Event);
+                if (await _projectRepository.SaveChangesAsync())
                 {
                     return Ok();
                 }

@@ -35,7 +35,9 @@ namespace project.api
             services.AddDbContext<ProjectContext>(
                 x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection"))
             );
+            services.AddScoped<iProjectRepository, ProjectRepository>();
             services.AddScoped<iEventRepository, EventRepository>();
+            services.AddScoped<iSpeakerRepository, SpeakerRepository>();
             services.AddMvc();
             services.AddCors();
         }

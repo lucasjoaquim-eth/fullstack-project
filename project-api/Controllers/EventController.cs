@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using project.repository.data;
-using project_repository;
 using project.domain;
+using project.repository;
 
 namespace project.api.Controllers
 {
@@ -17,9 +17,9 @@ namespace project.api.Controllers
     [Route("api/[controller]")]
     public class EventController : ControllerBase
     {
-        private readonly iProjectRepository _repository;
+        private readonly iEventRepository _repository;
 
-        public EventController(iProjectRepository repository)
+        public EventController(iEventRepository repository)
         {
             _repository = repository;
         }

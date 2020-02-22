@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore;
 using project.domain;
 using project.repository.data;
 
-namespace project_repository
+namespace project.repository
 {
-    public class ProjectRepository : iProjectRepository
+    public class EventRepository : iEventRepository
     {
         private readonly ProjectContext _context;
 
-        public ProjectRepository(ProjectContext context)
+        public EventRepository(ProjectContext context)
         {
             _context = context;
             _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;

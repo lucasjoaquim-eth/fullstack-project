@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
 using project.domain;
 
-namespace project_repository
+namespace project.repository
 {
-    public interface iProjectRepository
+    public interface iEventRepository
     {
         //All
         void Add<T>(T entity) where T : class;

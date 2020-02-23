@@ -1,9 +1,17 @@
+import { iLot } from "./lot";
+import { iSocialNetwork } from './social-network';
+import { iSpeaker } from './speaker';
+
 export interface iEvent {
-  eventId: number;
-  place: string;
+  Id: number;
   date: string;
+  place: string;
   theme: string;
   amountPeople: number;
-  lot: string;
   imagemURL: string;
+  Phone: string;
+  Email: string;
+  Lots: iLot[];
+  SocialNetworks: iSocialNetwork[];
+  SpeakerEvents: iSpeaker[];
 }

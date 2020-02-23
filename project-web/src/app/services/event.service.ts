@@ -16,11 +16,13 @@ export class EventService {
   };
   constructor(private http: HttpClient) {}
 
-  getById(Id: number): Observable<Event> {
-    return this.http.get<Event>(`${this.endpoint}/${Id}`);
-  }
-
-  get(): Observable<Event[]> {
+  getAllEvent(): Observable<Event[]> {
     return this.http.get<Event[]>(`${this.endpoint}`);
+  }
+  getEventById(id: number): Observable<Event> {
+    return this.http.get<Event>(`${this.endpoint}/${id}`);
+  }
+  getEventByTheme(theme: string): Observable<Event> {
+    return this.http.get<Event>(`${this.endpoint}/getByTheme/${theme}`);
   }
 }

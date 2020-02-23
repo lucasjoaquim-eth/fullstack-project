@@ -12,18 +12,20 @@ import { ThemePalette } from "@angular/material/core";
 })
 export class EventComponent implements OnInit {
   dataSource: MatTableDataSource<Event>;
-
+  _events: Event[];
   color: ThemePalette = "primary";
   checked = false;
   disabled = false;
 
   displayedColumns: string[] = [
     "id",
-    "place",
     "date",
+    "place",
     "theme",
     "amountPeople",
-    "imagemUrl"
+    "imagemUrl",
+    "phone",
+    "email"
   ];
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -38,10 +40,10 @@ export class EventComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
   getEvents(): void {
-    this.eventService.get().subscribe(
-      data => {
-        this.dataSource.data = data;
-        console.log(this.dataSource.data);
+    this.eventService.getAllEvent().subscribe(
+      _events => {
+        this.dataSource.data = _events;
+        console.log(_events);
       },
       error => {
         console.log(error);
@@ -60,17 +62,3 @@ export class EventComponent implements OnInit {
     this.checked = !this.checked;
   }
 }
-/*
-  getEvents() {
-    this.http.get("http://localhost:5000/api/Event").subscribe(
-      response => {
-        this.events = response;
-        console.log(response);
-      },
-      error => {
-        console.log(error);
-      }
-    );
-  }
-}
-*/

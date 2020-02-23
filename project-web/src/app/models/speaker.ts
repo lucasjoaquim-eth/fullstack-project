@@ -2,11 +2,11 @@ import { iSocialNetwork } from './social-network';
 import { iEvent } from './event';
 
 export interface iSpeaker {
-  Id: number;
-  Name: string;
-  SummaryCurriculum: string;
-  ImageUrl: string;
-  Email: string;
-  SocialNetworks: iSocialNetwork[];
-  SpeakerEvents: iEvent[];
+  id: number;
+  name: string;
+  summaryCurriculum: string;
+  imageUrl: string;
+  email: string;
+  socialNetworks: iSocialNetwork[];
+  speakerEvents: iEvent[];
 }

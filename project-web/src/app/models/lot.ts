@@ -1,10 +1,10 @@
 export interface iLot {
-  Id: number;
-  Name: string;
-  Price: number;
-  Amount: number;
-  DateBegin: Date;
-  DateEnd: Date;
-  EventId: number;
-  Event: Event;
+  id: number;
+  name: string;
+  price: number;
+  amount: number;
+  dateBegin?: Date;
+  dateEnd?: Date;
+  eventId: number;
+  event: Event;
 }

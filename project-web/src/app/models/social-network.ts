@@ -1,11 +1,9 @@
-import { iSpeaker } from './speaker';
+import { iSpeaker } from "./speaker";
 
 export interface iSocialNetwork {
-  Id: number;
-  Name:string;
+  id: number;
+  name: string;
   url: string;
-  EventId: number;
-  Event: Event;
-  SpeakerId: number;
-  Speaker: iSpeaker;
+  eventId?: number;
+  speakerId?: number;
 }

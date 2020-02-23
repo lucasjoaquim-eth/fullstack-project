@@ -33,12 +33,12 @@ export class EventComponent implements OnInit {
 
   ngOnInit() {
     this.dataSource = new MatTableDataSource<Event>([]);
-    this.consultEvent();
+    this.getEvents();
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
-  consultEvent(): void {
-    this.eventService.list().subscribe(
+  getEvents(): void {
+    this.eventService.get().subscribe(
       data => {
         this.dataSource.data = data;
         console.log(this.dataSource.data);

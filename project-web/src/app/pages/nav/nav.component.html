@@ -1,19 +1,31 @@
 <mat-toolbar color="primary" id="navbar-principal" class="mat-elevation-z4">
     <span>Project WebApi</span>
     <span class="fill-space"></span>
-    <button mat-button [matMenuTriggerFor]="menu">Eventos</button>
-    <mat-menu #menu="matMenu">
+    <button mat-button [matMenuTriggerFor]="menuEvent">Eventos</button>
+    <mat-menu #menuEvent="matMenu">
+        <button mat-menu-item>teste</button>
+        <button mat-menu-item></button>
+    </mat-menu>
+    <button mat-button [matMenuTriggerFor]="menuSpeaker">Palestrantes</button>
+    <mat-menu #menuSpeaker="matMenu">
         <button mat-menu-item></button>
         <button mat-menu-item></button>
     </mat-menu>
-    <button mat-button [matMenuTriggerFor]="menu">Palestrantes</button>
-    <mat-menu #menu="matMenu">
+    <button mat-button [matMenuTriggerFor]="menuContact">Contatos</button>
+    <mat-menu #menuContact="matMenu">
         <button mat-menu-item></button>
         <button mat-menu-item></button>
     </mat-menu>
-    <button mat-button [matMenuTriggerFor]="menu">Contatos</button>
-    <mat-menu #menu="matMenu">
-        <button mat-menu-item></button>
-        <button mat-menu-item></button>
+    <span class="example-spacer"></span>
+    <button mat-button [matMenuTriggerFor]="menuLogin">Login</button>
+    <mat-menu #menuLogin="matMenu">
+        <button mat-menu-item>
+          <mat-icon>person_outline</mat-icon>
+          <span>Perfil</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>input</mat-icon>
+          <span>Sair</span>
+        </button>
     </mat-menu>
 </mat-toolbar>

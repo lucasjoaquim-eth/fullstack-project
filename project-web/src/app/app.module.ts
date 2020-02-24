@@ -1,3 +1,4 @@
+import { AppRoutingModule } from "./app-routing.module";
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
@@ -7,24 +8,37 @@ import { MatDividerModule } from "@angular/material/divider";
 import { MatCardModule } from "@angular/material/card";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatButtonModule } from "@angular/material/button";
+import { MatButtonToggleModule } from "@angular/material/button-toggle";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatSortModule } from "@angular/material/sort";
 import { MatTableModule } from "@angular/material/table";
 import { MatInputModule } from "@angular/material/input";
 import { MatDialogModule } from "@angular/material/dialog";
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import { MatIconModule } from "@angular/material/icon";
+import { MatTooltipModule } from "@angular/material/tooltip";
 
+import { EventService } from "./services/event.service";
 
-import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { EventComponent } from "./pages/event/event.component";
 import { NavComponent } from "./pages/nav/nav.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { EventService } from "./services/event.service";
+
+import { DateFormatPipe } from "./helpers/date-format.pipe";
+import { DateTimeFormatPipe } from "./helpers/date-time-format.pipe";
 @NgModule({
-  declarations: [AppComponent, EventComponent, NavComponent],
+  declarations: [
+    AppComponent,
+    EventComponent,
+    NavComponent,
+    DateTimeFormatPipe,
+    DateFormatPipe
+  ],
   exports: [],
   imports: [
+    MatTooltipModule,
+    MatIconModule,
     MatSlideToggleModule,
     MatDialogModule,
     MatInputModule,
@@ -40,7 +54,8 @@ import { EventService } from "./services/event.service";
     MatDividerModule,
     MatCardModule,
     MatMenuModule,
-    MatButtonModule
+    MatButtonModule,
+    MatButtonToggleModule
   ],
   providers: [EventService],
   bootstrap: [AppComponent],

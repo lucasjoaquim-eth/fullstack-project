@@ -17,11 +17,13 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatIconModule } from "@angular/material/icon";
 import { MatTooltipModule } from "@angular/material/tooltip";
+import { MatFormFieldModule } from "@angular/material/form-field";
 
 import { EventService } from "./services/event.service";
 
 import { AppComponent } from "./app.component";
 import { EventComponent } from "./pages/event/event.component";
+import { EventDialogComponent } from "./pages/event/event-dialog/eventDialog.component";
 import { NavComponent } from "./pages/nav/nav.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
@@ -31,12 +33,14 @@ import { DateTimeFormatPipe } from "./helpers/date-time-format.pipe";
   declarations: [
     AppComponent,
     EventComponent,
+    EventDialogComponent,
     NavComponent,
     DateTimeFormatPipe,
     DateFormatPipe
   ],
   exports: [],
   imports: [
+    MatFormFieldModule,
     MatTooltipModule,
     MatIconModule,
     MatSlideToggleModule,

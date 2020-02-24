@@ -1,9 +1,15 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild, Inject } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 import { EventService } from "src/app/services/event.service";
 import { ThemePalette } from "@angular/material/core";
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA
+} from "@angular/material/dialog";
+import { EventDialogComponent } from "./event-dialog/eventDialog.component";
 
 @Component({
   selector: "app-event",
@@ -27,13 +33,13 @@ export class EventComponent implements OnInit {
     "lots",
     "phone",
     "email",
-    'star'
+    "star"
   ];
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private eventService: EventService) {}
+  constructor(private eventService: EventService, public dialog: MatDialog) {}
 
   ngOnInit() {
     this.dataSource = new MatTableDataSource<Event>([]);
@@ -62,5 +68,18 @@ export class EventComponent implements OnInit {
   }
   invertChecked() {
     this.checked = !this.checked;
+  }
+  openDialog(): void {
+    const dialogRef = this.dialog.open(EventDialogComponent, {
+      width: "250px",
+      data: { event: this._events }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("The dialog was closed");
+      data: {
+        event: this._events;
+      }
+    });
   }
 }

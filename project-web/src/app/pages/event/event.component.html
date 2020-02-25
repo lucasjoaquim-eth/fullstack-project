@@ -1,91 +1,93 @@
-<mat-form-field>
+<!--
+  <mat-form-field>
     <mat-label>Pesquise</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. São Paulo">
-</mat-form-field>
+    </mat-form-field>
 
-<div class="mat-elevation-z8">
+    <div class="mat-elevation-z8">
 
-    <table mat-table [dataSource]="dataSource" matSort>
-        <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-            <td mat-cell *matCellDef="let row"> {{row.id}} </td>
-        </ng-container>
+        <table mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+            </ng-container>
 
-        <ng-container matColumnDef="imagemUrl">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Imagem </th>
-            <td mat-cell *matCellDef="let row">
-                <img src="http://localhost:5000/img/{{row.imagemUrl}}">
-            </td>
-        </ng-container>
+            <ng-container matColumnDef="imagemUrl">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Imagem </th>
+                <td mat-cell *matCellDef="let row">
+                    <img src="http://localhost:5000/img/{{row.imagemUrl}}">
+                </td>
+            </ng-container>
 
-        <ng-container matColumnDef="place">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Local </th>
-            <td mat-cell *matCellDef="let row"> {{row.place}} </td>
-        </ng-container>
+            <ng-container matColumnDef="place">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Local </th>
+                <td mat-cell *matCellDef="let row"> {{row.place}} </td>
+            </ng-container>
 
-        <ng-container matColumnDef="date">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Data </th>
-            <td mat-cell *matCellDef="let row"> {{row.date | dateTimeFormatPipe}} </td>
-        </ng-container>
+            <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Data </th>
+                <td mat-cell *matCellDef="let row"> {{row.date | dateTimeFormatPipe}} </td>
+            </ng-container>
 
-        <ng-container matColumnDef="theme">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Tema </th>
-            <td mat-cell *matCellDef="let row"> {{row.theme}} </td>
-        </ng-container>
+            <ng-container matColumnDef="theme">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Tema </th>
+                <td mat-cell *matCellDef="let row"> {{row.theme}} </td>
+            </ng-container>
 
-        <ng-container matColumnDef="amountPeople">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Público </th>
-            <td mat-cell *matCellDef="let row"> {{row.amountPeople}} </td>
-        </ng-container>
+            <ng-container matColumnDef="amountPeople">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Público </th>
+                <td mat-cell *matCellDef="let row"> {{row.amountPeople}} </td>
+            </ng-container>
 
-        <ng-container matColumnDef="lots">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Lotes </th>
-            <td mat-cell *matCellDef="let row">
-                <div *ngIf="!(row.lots.length)">
-                    Não informado
-                </div>
-                <div *ngIf="row.lots.length">
-                    {{row.lots[0].name | uppercase }}
-                </div>
-            </td>
-        </ng-container>
+            <ng-container matColumnDef="lots">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Lotes </th>
+                <td mat-cell *matCellDef="let row">
+                    <div *ngIf="!(row.lots.length)">
+                        Não informado
+                    </div>
+                    <div *ngIf="row.lots.length">
+                        {{row.lots[0].name | uppercase }}
+                    </div>
+                </td>
+            </ng-container>
 
-        <ng-container matColumnDef="phone">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Contato </th>
-            <td mat-cell *matCellDef="let row "> {{row.phone}} </td>
-        </ng-container>
+            <ng-container matColumnDef="phone">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Contato </th>
+                <td mat-cell *matCellDef="let row "> {{row.phone}} </td>
+            </ng-container>
 
-        <ng-container matColumnDef="email">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
-            <td mat-cell *matCellDef="let row "> {{row.email}} </td>
-        </ng-container>
+            <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+                <td mat-cell *matCellDef="let row "> {{row.email}} </td>
+            </ng-container>
 
-        <ng-container matColumnDef="star">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
-            <td mat-cell *matCellDef="let row">
-                <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Menu Edição">
+            <ng-container matColumnDef="star">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                <td mat-cell *matCellDef="let row">
+                    <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Menu Edição">
                     <mat-icon>more_vert</mat-icon>
                 </button>
-                <mat-menu #menu="matMenu">
-                    <button mat-menu-item (click)="openDialog()">
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="openDialog()">
                        <mat-icon>edit</mat-icon>
                        <span>Editar</span>
                     </button>
-                    <button mat-menu-item (click)="openDialog()">
+                        <button mat-menu-item (click)="openDialog()">
                        <mat-icon>delete_outline</mat-icon>
                         <span>Apagar</span>
                     </button>
-                </mat-menu>
-            </td>
-        </ng-container>
+                    </mat-menu>
+                </td>
+            </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns "></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns; ">
+            <tr mat-header-row *matHeaderRowDef="displayedColumns "></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns; ">
 
-    </table>
+        </table>
 
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100] "></mat-paginator>
-</div>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100] "></mat-paginator>
+    </div>
+  -->
 
 <div class="example-form">
 
@@ -122,7 +124,10 @@
 
     <mat-form-field class="example-full-width">
         <span matPrefix>+11 &nbsp;</span>
-        <input type="tel" matInput placeholder="Número de contato">
+        <input type="tel" matInput placeholder="Número de contato" [(ngModel)]="phone">
+        <button mat-button *ngIf="phone" matSuffix mat-icon-button aria-label="Clear" (click)="phone=''">
+          <mat-icon>close</mat-icon>
+       </button>
         <mat-icon matSuffix>mode_edit</mat-icon>
     </mat-form-field>
 
@@ -138,5 +143,4 @@
             Email is <strong>required</strong>
         </mat-error>
     </mat-form-field>
-
 </div>

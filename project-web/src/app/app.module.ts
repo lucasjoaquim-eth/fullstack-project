@@ -18,6 +18,9 @@ import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatIconModule } from "@angular/material/icon";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatNativeDateModule } from "@angular/material/core";
 
 import { EventService } from "./services/event.service";
 
@@ -40,6 +43,10 @@ import { DateTimeFormatPipe } from "./helpers/date-time-format.pipe";
   ],
   exports: [],
   imports: [
+    MatDatepickerModule,
+    MatNativeDateModule,
+    FormsModule,
+    ReactiveFormsModule,
     MatFormFieldModule,
     MatTooltipModule,
     MatIconModule,

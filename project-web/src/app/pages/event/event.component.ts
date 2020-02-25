@@ -24,6 +24,7 @@ export class EventComponent implements OnInit {
   place: string;
   theme: string;
   email: string;
+  phone: string;
 
   emailFormControl = new FormControl("", [
     Validators.required,

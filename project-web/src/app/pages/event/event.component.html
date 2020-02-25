@@ -85,5 +85,58 @@
     </table>
 
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100] "></mat-paginator>
+</div>
+
+<div class="example-form">
+
+    <mat-form-field class="example-full-width">
+        <input matInput type="text" placeholder="Imagem" [(ngModel)]="imagemUrl" />
+        <button mat-button *ngIf="imagemUrl" matSuffix mat-icon-button aria-label="Clear" (click)="imagemUrl=''">
+          <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Selecione a data">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+        <input matInput type="text" placeholder="Local" [(ngModel)]="place">
+        <button mat-button *ngIf="place" matSuffix mat-icon-button aria-label="Clear" (click)="place=''">
+          <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+        <input matInput type="text" placeholder="Tema" [(ngModel)]="theme">
+        <button mat-button *ngIf="theme" matSuffix mat-icon-button aria-label="Clear" (click)="theme=''">
+          <mat-icon>close</mat-icon>
+       </button>
+    </mat-form-field>
+
+    <mat-form-field class="example-margin">
+        <input type="number" matInput placeholder="Pessoas">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+        <span matPrefix>+11 &nbsp;</span>
+        <input type="tel" matInput placeholder="Número de contato">
+        <mat-icon matSuffix>mode_edit</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="Email" [formControl]="emailFormControl" [(ngModel)]="email">
+        <button mat-button *ngIf="email" matSuffix mat-icon-button aria-label="Clear" (click)="email=''">
+          <mat-icon>close</mat-icon>
+       </button>
+        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+            Por favor entre com endereço de e-mail válido
+        </mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('required')">
+            Email is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
 
 </div>

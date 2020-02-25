@@ -1,15 +1,12 @@
-import { Component, OnInit, ViewChild, Inject } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 import { EventService } from "src/app/services/event.service";
 import { ThemePalette } from "@angular/material/core";
-import {
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA
-} from "@angular/material/dialog";
+import { MatDialog } from "@angular/material/dialog";
 import { EventDialogComponent } from "./event-dialog/eventDialog.component";
+import { FormControl, Validators } from "@angular/forms";
 
 @Component({
   selector: "app-event",
@@ -22,6 +19,16 @@ export class EventComponent implements OnInit {
   color: ThemePalette = "primary";
   checked = false;
   disabled = false;
+
+  imagemUrl: string;
+  place: string;
+  theme: string;
+  email: string;
+
+  emailFormControl = new FormControl("", [
+    Validators.required,
+    Validators.email
+  ]);
 
   displayedColumns: string[] = [
     "imagemUrl",

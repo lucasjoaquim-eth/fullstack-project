@@ -6,7 +6,7 @@ import { EventService } from "src/app/services/event.service";
 import { ThemePalette } from "@angular/material/core";
 import { MatDialog } from "@angular/material/dialog";
 import { EventDialogComponent } from "./event-dialog/eventDialog.component";
-import { FormControl, Validators } from "@angular/forms";
+import { FormControl, Validators, FormGroup } from "@angular/forms";
 
 @Component({
   selector: "app-event",
@@ -19,12 +19,15 @@ export class EventComponent implements OnInit {
   color: ThemePalette = "primary";
   checked = false;
   disabled = false;
+  registerForm: FormGroup;
 
   imagemUrl: string;
   place: string;
   theme: string;
   email: string;
   phone: string;
+  date: Date;
+  amountPeople: Number;
 
   emailFormControl = new FormControl("", [
     Validators.required,
@@ -54,6 +57,7 @@ export class EventComponent implements OnInit {
     this.getEvents();
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.validation();
   }
   getEvents(): void {
     this.eventService.getAllEvent().subscribe(
@@ -90,4 +94,25 @@ export class EventComponent implements OnInit {
       }
     });
   }
+  validation() {
+    this.registerForm = new FormGroup({
+      imagemUrl: new FormControl("", Validators.required),
+      date: new FormControl("", Validators.required),
+      place: new FormControl("", Validators.required),
+      theme: new FormControl("", [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(50)
+      ]),
+      amountPeople: new FormControl("", [
+        Validators.required,
+        Validators.maxLength(1200)
+      ]),
+      phone: new FormControl("", Validators.required),
+      email: new FormControl("", Validators.required)
+    });
+  }
+
+  saveChange() {}
+  close() {}
 }

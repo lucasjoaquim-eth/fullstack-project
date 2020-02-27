@@ -35,6 +35,7 @@ mat-slide-toggle {
     width: 200px;
 }
 
-.button {
-    z-index: 1;
+.button-row button,
+.button-row a {
+    margin-right: 8px;
 }

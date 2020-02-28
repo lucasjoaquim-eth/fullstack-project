@@ -32,6 +32,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { DateFormatPipe } from "./helpers/date-format.pipe";
 import { DateTimeFormatPipe } from "./helpers/date-time-format.pipe";
+import { LOCALE_ID } from "@angular/core";
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,7 +69,7 @@ import { DateTimeFormatPipe } from "./helpers/date-time-format.pipe";
     MatButtonModule,
     MatButtonToggleModule
   ],
-  providers: [EventService],
+  providers: [EventService, { provide: LOCALE_ID, useValue: "pt-BR" }],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

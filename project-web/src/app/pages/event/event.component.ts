@@ -6,7 +6,7 @@ import { EventService } from "src/app/services/event.service";
 import { ThemePalette } from "@angular/material/core";
 import { MatDialog } from "@angular/material/dialog";
 import { EventDialogComponent } from "./event-dialog/eventDialog.component";
-import { FormControl, Validators, FormGroup } from "@angular/forms";
+import { Validators, FormGroup, FormBuilder } from "@angular/forms";
 
 @Component({
   selector: "app-event",
@@ -29,11 +29,6 @@ export class EventComponent implements OnInit {
   date: Date;
   amountPeople: Number;
 
-  emailFormControl = new FormControl("", [
-    Validators.required,
-    Validators.email
-  ]);
-
   displayedColumns: string[] = [
     "imagemUrl",
     "id",
@@ -50,7 +45,11 @@ export class EventComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private eventService: EventService, public dialog: MatDialog) {}
+  constructor(
+    private eventService: EventService,
+    public dialog: MatDialog,
+    private formBuilder: FormBuilder
+  ) {}
 
   ngOnInit() {
     this.dataSource = new MatTableDataSource<Event>([]);
@@ -58,6 +57,7 @@ export class EventComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.validation();
+    this.saveChange();
   }
   getEvents(): void {
     this.eventService.getAllEvent().subscribe(
@@ -94,25 +94,21 @@ export class EventComponent implements OnInit {
       }
     });
   }
+
   validation() {
-    this.registerForm = new FormGroup({
-      imagemUrl: new FormControl("", Validators.required),
-      date: new FormControl("", Validators.required),
-      place: new FormControl("", Validators.required),
-      theme: new FormControl("", [
-        Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(50)
-      ]),
-      amountPeople: new FormControl("", [
-        Validators.required,
-        Validators.maxLength(1200)
-      ]),
-      phone: new FormControl("", Validators.required),
-      email: new FormControl("", Validators.required)
+    this.registerForm = this.formBuilder.group({
+      imagemUrl: ["", [Validators.required]],
+      date: ["", [Validators.required]],
+      place: ["", [Validators.required]],
+      amountPeople: ["", [Validators.required, Validators.maxLength(1200)]],
+      phone: ["", [Validators.required]],
+      theme: [
+        "",
+        [Validators.required, Validators.minLength(3), Validators.maxLength(50)]
+      ],
+      email: ["", [Validators.required, Validators.email]]
     });
   }
-
   saveChange() {}
   close() {}
 }

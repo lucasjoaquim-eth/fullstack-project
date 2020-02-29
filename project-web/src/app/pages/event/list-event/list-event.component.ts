@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild, Inject } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 import { MatDialog } from "@angular/material/dialog";
 import { EventService } from "src/app/services/event.service";
-import { EventDialogComponent } from "../event-dialog/eventDialog.component";
+import { RegisterEventComponent } from "../register-event/register-event.component";
 
 @Component({
   selector: "app-list-event",
@@ -60,8 +60,8 @@ export class ListEventComponent implements OnInit {
     }
   }
   openDialog(): void {
-    const dialogRef = this.dialog.open(EventDialogComponent, {
-      width: "250px",
+    const dialogRef = this.dialog.open(RegisterEventComponent, {
+      width: "500px",
       data: { event: this._events }
     });
 

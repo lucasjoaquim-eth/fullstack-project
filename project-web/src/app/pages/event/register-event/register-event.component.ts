@@ -37,5 +37,4 @@ export class RegisterEventComponent implements OnInit {
     });
   }
   saveChange() {}
-  close() {}
 }

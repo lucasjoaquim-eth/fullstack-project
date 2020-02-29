@@ -1,7 +1,17 @@
-<mat-form-field>
-    <mat-label>Pesquise</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. São Paulo">
-</mat-form-field>
+<div fxLayout="row" fxLayoutAlign="space-between center">
+    <button (click)="openDialog()" class="mat-elevation-z1" mat-button color="primary">
+    <mat-icon>add</mat-icon>
+     Adicionar
+    </button>
+
+    <mat-form-field appearance="outline">
+        <mat-label>
+            Pesquisar
+        </mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. São Paulo">
+        <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+</div>
 
 <div class="mat-elevation-z8">
 

@@ -21,6 +21,13 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+
+import { DateFormatPipe } from "./helpers/date-format.pipe";
+import { DateTimeFormatPipe } from "./helpers/date-time-format.pipe";
+import { LOCALE_ID } from "@angular/core";
+import { registerLocaleData } from "@angular/common";
+import localePt from "@angular/common/locales/pt";
 
 import { EventService } from "./services/event.service";
 
@@ -28,11 +35,10 @@ import { AppComponent } from "./app.component";
 import { EventComponent } from "./pages/event/event.component";
 import { EventDialogComponent } from "./pages/event/event-dialog/eventDialog.component";
 import { NavComponent } from "./pages/nav/nav.component";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { RegisterEventComponent } from "./pages/event/register-event/register-event.component";
+import { ListEventComponent } from "./pages/event/list-event/list-event.component";
 
-import { DateFormatPipe } from "./helpers/date-format.pipe";
-import { DateTimeFormatPipe } from "./helpers/date-time-format.pipe";
-import { LOCALE_ID } from "@angular/core";
+registerLocaleData(localePt);
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +46,9 @@ import { LOCALE_ID } from "@angular/core";
     EventDialogComponent,
     NavComponent,
     DateTimeFormatPipe,
-    DateFormatPipe
+    DateFormatPipe,
+    RegisterEventComponent,
+    ListEventComponent
   ],
   exports: [],
   imports: [

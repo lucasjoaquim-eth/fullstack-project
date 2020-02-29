@@ -32,7 +32,6 @@ import localePt from "@angular/common/locales/pt";
 import { EventService } from "./services/event.service";
 
 import { AppComponent } from "./app.component";
-import { EventComponent } from "./pages/event/event.component";
 import { EventDialogComponent } from "./pages/event/event-dialog/eventDialog.component";
 import { NavComponent } from "./pages/nav/nav.component";
 import { RegisterEventComponent } from "./pages/event/register-event/register-event.component";
@@ -42,7 +41,6 @@ registerLocaleData(localePt);
 @NgModule({
   declarations: [
     AppComponent,
-    EventComponent,
     EventDialogComponent,
     NavComponent,
     DateTimeFormatPipe,

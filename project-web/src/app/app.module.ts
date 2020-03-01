@@ -13,7 +13,10 @@ import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatSortModule } from "@angular/material/sort";
 import { MatTableModule } from "@angular/material/table";
 import { MatInputModule } from "@angular/material/input";
-import { MatDialogModule } from "@angular/material/dialog";
+import {
+  MatDialogModule,
+  MAT_DIALOG_DEFAULT_OPTIONS
+} from "@angular/material/dialog";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatIconModule } from "@angular/material/icon";
 import { MatTooltipModule } from "@angular/material/tooltip";

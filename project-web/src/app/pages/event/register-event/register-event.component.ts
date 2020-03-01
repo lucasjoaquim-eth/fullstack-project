@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Validators, FormGroup, FormBuilder } from "@angular/forms";
+import { MatDialogRef } from "@angular/material/dialog";
 
 @Component({
   selector: "app-register-event",
@@ -7,6 +8,7 @@ import { Validators, FormGroup, FormBuilder } from "@angular/forms";
   styleUrls: ["./register-event.component.css"]
 })
 export class RegisterEventComponent implements OnInit {
+  title = "Cadastro de Eventos";
   imagemUrl: string;
   place: string;
   theme: string;

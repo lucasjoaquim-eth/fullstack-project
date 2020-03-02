@@ -1,79 +1,79 @@
 <div class="example-form" fxLayout="column" fxLayoutAlign="center center">
     <h2 mat-dialog-title>
         {{title}}</h2>
-    <mat-dialog-content class="mat-typography">
-        <mat-form [formGroup]="registerForm">
-            <mat-form-field class="example-full-width">
-                <input matInput type="text" placeholder="Imagem" [(ngModel)]="imagemUrl" formControlName="imagemUrl">
-                <button mat-button *ngIf="imagemUrl" matSuffix mat-icon-button aria-label="Clear" (click)="imagemUrl=''">
+    <mat-form [formGroup]="registerForm">
+        <mat-form-field class="example-full-width">
+            <input matInput type="text" placeholder="Imagem" [(ngModel)]="imagemUrl" formControlName="imagemUrl">
+            <button mat-button *ngIf="imagemUrl" matSuffix mat-icon-button aria-label="Clear" (click)="imagemUrl=''">
                    <mat-icon>close</mat-icon>
                 </button>
-                <mat-error *ngIf="registerForm.get('imagemUrl').hasError('required')">
-                    Imagem é <strong>obrigatório</strong>
-                </mat-error>
-            </mat-form-field>
+            <mat-error *ngIf="registerForm.get('imagemUrl').hasError('required')">
+                Imagem é <strong>obrigatório</strong>
+            </mat-error>
+        </mat-form-field>
 
-            <mat-form-field>
-                <input matInput [matDatepicker]="picker" placeholder="Selecione a data" formControlName="date">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-                <mat-error *ngIf="registerForm.get('date').hasError('required')">
-                    Data é <strong>obrigatório</strong>
-                </mat-error>
-            </mat-form-field>
+        <mat-form-field>
+            <input matInput [matDatepicker]="picker" placeholder="Selecione a data" formControlName="date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="registerForm.get('date').hasError('required')">
+                Data é <strong>obrigatório</strong>
+            </mat-error>
+        </mat-form-field>
 
-            <mat-form-field class="example-full-width">
-                <input matInput type="text" placeholder="Local" [(ngModel)]="place" formControlName="place">
-                <button mat-button *ngIf="place" matSuffix mat-icon-button aria-label="Clear" (click)="place=''">
+        <mat-form-field class="example-full-width">
+            <input matInput type="text" placeholder="Local" [(ngModel)]="place" formControlName="place">
+            <button mat-button *ngIf="place" matSuffix mat-icon-button aria-label="Clear" (click)="place=''">
                    <mat-icon>close</mat-icon>
                 </button>
-                <mat-error *ngIf="registerForm.get('place').hasError('required')">
-                    Local é <strong>obrigatório</strong>
-                </mat-error>
-            </mat-form-field>
+            <mat-error *ngIf="registerForm.get('place').hasError('required')">
+                Local é <strong>obrigatório</strong>
+            </mat-error>
+        </mat-form-field>
 
-            <mat-form-field class="example-full-width">
-                <input matInput type="text" placeholder="Tema" [(ngModel)]="theme" formControlName="theme">
-                <button mat-button *ngIf="theme" matSuffix mat-icon-button aria-label="Clear" (click)="theme=''">
+        <mat-form-field class="example-full-width">
+            <input matInput type="text" placeholder="Tema" [(ngModel)]="theme" formControlName="theme">
+            <button mat-button *ngIf="theme" matSuffix mat-icon-button aria-label="Clear" (click)="theme=''">
                     <mat-icon>close</mat-icon>
                 </button>
-                <mat-error *ngIf="registerForm.get('theme').hasError('required')">
-                    Tema é <strong>obrigatório</strong>
-                </mat-error>
-            </mat-form-field>
+            <mat-error *ngIf="registerForm.get('theme').hasError('required')">
+                Tema é <strong>obrigatório</strong>
+            </mat-error>
+        </mat-form-field>
 
-            <mat-form-field class="example-full-width">
-                <input matInput placeholder="Email" [(ngModel)]="email" formControlName="email">
-                <button mat-button *ngIf="email" matSuffix mat-icon-button aria-label="Clear" (click)="email=''">
+        <mat-form-field class="example-full-width">
+            <input matInput placeholder="Email" [(ngModel)]="email" formControlName="email">
+            <button mat-button *ngIf="email" matSuffix mat-icon-button aria-label="Clear" (click)="email=''">
                      <mat-icon>close</mat-icon>
                 </button>
-                <mat-error *ngIf="registerForm.get('email').hasError('email') && !registerForm.get('email').hasError('required')">
-                    Por favor entre com endereço de e-mail válido
-                </mat-error>
-                <mat-error *ngIf="registerForm.get('email').hasError('required')">
-                    Email é <strong>obrigatório</strong>
-                </mat-error>
-            </mat-form-field>
+            <mat-error *ngIf="registerForm.get('email').hasError('email') && !registerForm.get('email').hasError('required')">
+                Por favor entre com endereço de e-mail válido
+            </mat-error>
+            <mat-error *ngIf="registerForm.get('email').hasError('required')">
+                Email é <strong>obrigatório</strong>
+            </mat-error>
+        </mat-form-field>
 
-            <mat-form-field class="example-margin">
-                <input type="number" matInput placeholder="Pessoas" formControlName="amountPeople">
-            </mat-form-field>
+        <mat-form-field class="example-margin">
+            <input type="number" matInput placeholder="Pessoas" formControlName="amountPeople">
+        </mat-form-field>
 
-            <mat-form-field class="example-full-width">
-                <span matPrefix>+11 &nbsp;</span>
-                <input type="tel" matInput placeholder="Número de contato" [(ngModel)]="phone" formControlName="phone">
-                <button mat-button *ngIf="phone" matSuffix mat-icon-button aria-label="Clear" (click)="phone=''">
+        <mat-form-field class="example-full-width">
+            <span matPrefix>+11 &nbsp;</span>
+            <input type="tel" matInput placeholder="Número de contato" [(ngModel)]="phone" formControlName="phone">
+            <button mat-button *ngIf="phone" matSuffix mat-icon-button aria-label="Clear" (click)="phone=''">
               <mat-icon>close</mat-icon>
             </button>
-                <mat-icon matSuffix>mode_edit</mat-icon>
-            </mat-form-field>
-        </mat-form>
-    </mat-dialog-content>
+            <mat-icon matSuffix>mode_edit</mat-icon>
+        </mat-form-field>
+    </mat-form>
 
     <mat-dialog-actions align="end">
         <div class="button-row">
-            <button mat-button [disabled]="registerForm.invalid" (click)="saveChange()" color="primary">Salvar</button>
-            <button mat-button mat-dialog-close routerLink="/event/list/" color="primary">Fechar</button>
+            <button mat-button [disabled]="registerForm.invalid" (click)="add()" mat-dialog-close color="primary">Salvar</button>
+            <button mat-button (click)="goToEventList()" color="primary" mat-dialog-close>Fechar</button>
         </div>
     </mat-dialog-actions>
 </div>
+<p>Form Value: {{registerForm.value | json}} </p>
+<p>Form Status: {{registerForm.status | json}} </p>

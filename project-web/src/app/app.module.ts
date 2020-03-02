@@ -79,6 +79,7 @@ registerLocaleData(localePt);
     MatButtonToggleModule
   ],
   providers: [EventService, { provide: LOCALE_ID, useValue: "pt-BR" }],
+  entryComponents: [RegisterEventComponent],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

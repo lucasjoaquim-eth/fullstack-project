@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { HttpHeaders } from "@angular/common/http";
+import { iEvent } from "../models/event";
 
 @Injectable({
   providedIn: "root"
@@ -16,13 +17,16 @@ export class EventService {
   };
   constructor(private http: HttpClient) {}
 
-  getAllEvent(): Observable<Event[]> {
-    return this.http.get<Event[]>(`${this.endpoint}`);
+  getAllEvent(): Observable<iEvent[]> {
+    return this.http.get<iEvent[]>(`${this.endpoint}`);
   }
-  getEventById(id: number): Observable<Event> {
-    return this.http.get<Event>(`${this.endpoint}/${id}`);
+  getEventById(id: number): Observable<iEvent> {
+    return this.http.get<iEvent>(`${this.endpoint}/${id}`);
   }
-  getEventByTheme(theme: string): Observable<Event> {
-    return this.http.get<Event>(`${this.endpoint}/getByTheme/${theme}`);
+  getEventByTheme(theme: string): Observable<iEvent> {
+    return this.http.get<iEvent>(`${this.endpoint}/getByTheme/${theme}`);
+  }
+  postEvent(event: iEvent): Observable<iEvent> {
+    return this.http.post<iEvent>(this.endpoint, event, this.httpOptions);
   }
 }

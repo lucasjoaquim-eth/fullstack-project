@@ -29,4 +29,11 @@ export class EventService {
   postEvent(event: iEvent): Observable<iEvent> {
     return this.http.post<iEvent>(this.endpoint, event, this.httpOptions);
   }
+  putEvent(event: iEvent): Observable<iEvent> {
+    return this.http.put<iEvent>(
+      this.endpoint + "/put/" + event.id,
+      event,
+      this.httpOptions
+    );
+  }
 }

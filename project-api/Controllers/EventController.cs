@@ -86,16 +86,18 @@ namespace project.api.Controllers
             return BadRequest();
         }
 
-        [HttpPut]
+        [HttpPut("{EventId}")]
         public async Task<IActionResult> Put(int EventId, Event modelEvent)
         {
             try
             {
-                var Event = await _eventRepository.GetEventAsyncById(EventId, false);
-                if (Event == null)
+                var _event = await _eventRepository.GetEventAsyncById(EventId, false);
+
+                if (_event == null)
                 {
                     return NotFound();
                 }
+                _projectRepository.Update(modelEvent);
                 if (await _projectRepository.SaveChangesAsync())
                 {
                     return Created($"/api/event/{modelEvent.Id}", modelEvent);
@@ -107,17 +109,17 @@ namespace project.api.Controllers
             }
             return BadRequest();
         }
-        [HttpDelete]
-        public async Task<IActionResult> Delete(int EventId, Event modelEvent)
+        [HttpDelete("{EventId}")]
+        public async Task<IActionResult> Delete(int EventId)
         {
             try
             {
-                var Event = await _eventRepository.GetEventAsyncById(EventId, false);
-                if (Event == null)
+                var _event = await _eventRepository.GetEventAsyncById(EventId, false);
+                if (_event == null)
                 {
                     return NotFound();
                 }
-                _projectRepository.delete(Event);
+                _projectRepository.Delete(_event);
                 if (await _projectRepository.SaveChangesAsync())
                 {
                     return Ok();

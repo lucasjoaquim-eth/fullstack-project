@@ -94,6 +94,25 @@ export class RegisterEventComponent implements OnInit {
     );
   }
 
+  update() {
+    this.event = this.registerForm.getRawValue();
+    this.eventService.putEvent(this.event).subscribe(
+      event => {
+        if (event && event.id) {
+          console.log("Evento atualizado com sucesso");
+          this.goToEventList();
+        } else {
+          console.log(
+            "Não foi possível atualizar Evento. Favor verificar os dados"
+          );
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
   saveUpdate() {
     if (this.registerForm.valid) {
       this.event = Object.assign({}, this.registerForm.value);

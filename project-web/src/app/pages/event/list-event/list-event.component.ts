@@ -7,6 +7,7 @@ import { EventService } from "src/app/services/event.service";
 import { RegisterEventComponent } from "../register-event/register-event.component";
 import { iEvent } from "src/app/models/event";
 import { Router } from "@angular/router";
+import { ConfirmationDialogComponent } from "src/app/components/confirmation-dialog/confirmation-dialog.component";
 
 @Component({
   selector: "app-list-event",
@@ -42,11 +43,12 @@ export class ListEventComponent implements OnInit {
 
   ngOnInit() {
     this.dataSource = new MatTableDataSource<iEvent>([]);
-    this.getEvents();
+    this.listEvents();
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
-  getEvents(): void {
+
+  listEvents(): void {
     this.eventService.getAllEvent().subscribe(
       events => {
         this.events = events;
@@ -64,7 +66,34 @@ export class ListEventComponent implements OnInit {
   }
 
   delete(event: iEvent) {
-    this.router.navigate([`/event/register/${event.id}/delete`]);
+    let confirmationDialog = this.dialog.open(ConfirmationDialogComponent, {
+      data: {
+        title: "Deletar evento",
+        message: `Deseja deletar o evento ${event.theme}?`
+      }
+    });
+    confirmationDialog.afterClosed().subscribe(data => {
+      if (data && data.confirm) {
+        this.eventService.deleteEvent(event.id).subscribe(
+          result => {
+            if (result) {
+              console.log(
+                `Evento ${event.theme} deletado com sucesso. Dados: ${event.id}`
+              );
+            } else {
+              console.log(
+                `Erro ao deletar ${event.theme}, favor verificar os dados. Dados: ${event.id}`
+              );
+              console.log(result);
+              console.log(data);
+            }
+          },
+          error => {
+            console.log(error);
+          }
+        );
+      }
+    });
   }
 
   openDialog(): void {

@@ -39,6 +39,7 @@ import { AppComponent } from "./app.component";
 import { NavComponent } from "./pages/nav/nav.component";
 import { RegisterEventComponent } from "./pages/event/register-event/register-event.component";
 import { ListEventComponent } from "./pages/event/list-event/list-event.component";
+import { ConfirmationDialogComponent } from "./components/confirmation-dialog/confirmation-dialog.component";
 
 registerLocaleData(localePt);
 @NgModule({
@@ -48,7 +49,8 @@ registerLocaleData(localePt);
     DateTimeFormatPipe,
     DateFormatPipe,
     RegisterEventComponent,
-    ListEventComponent
+    ListEventComponent,
+    ConfirmationDialogComponent
   ],
   exports: [],
   imports: [
@@ -79,7 +81,7 @@ registerLocaleData(localePt);
     MatButtonToggleModule
   ],
   providers: [EventService, { provide: LOCALE_ID, useValue: "pt-BR" }],
-  entryComponents: [RegisterEventComponent],
+  entryComponents: [RegisterEventComponent, ConfirmationDialogComponent],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

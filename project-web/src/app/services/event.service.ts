@@ -36,4 +36,7 @@ export class EventService {
       this.httpOptions
     );
   }
+  deleteEvent(id: number) {
+    return this.http.delete<boolean>(`${this.endpoint}/${id}`);
+  }
 }

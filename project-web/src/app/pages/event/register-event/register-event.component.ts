@@ -118,44 +118,25 @@ export class RegisterEventComponent implements OnInit {
     }
   }
 
-  update() {
-    this.event = this.registerForm.getRawValue();
-    this.eventService.putEvent(this.event).subscribe(
-      event => {
-        if (event && event.id) {
-          console.log("Evento atualizado com sucesso");
-          this.goToEventList();
-        } else {
-          console.log(
-            "Não foi possível atualizar Evento. Favor verificar os dados"
-          );
-        }
-      },
-      error => {
-        console.log(error);
-      }
-    );
-  }
-
-  saveUpdate(edit?: boolean) {
-    if (this.registerForm.valid) {
-      this.event = Object.assign({}, this.registerForm.value);
-      this.eventService.postEvent(this.event).subscribe(
-        (newEvent: iEvent) => {
-          console.log(newEvent);
-          this.goToEventList();
-        },
-        error => {
-          console.log(error);
-        }
-      );
-    }
-  }
   goToEventList(): void {
     this.router.navigate(["/event"]);
-    this.listEvent.getEvents();
   }
   closeDialog() {
     this.dialog.closeAll();
   }
 }
+
+// saveUpdate(edit?: boolean) {
+//   if (this.registerForm.valid) {
+//     this.event = Object.assign({}, this.registerForm.value);
+//     this.eventService.postEvent(this.event).subscribe(
+//       (newEvent: iEvent) => {
+//         console.log(newEvent);
+//         this.goToEventList();
+//       },
+//       error => {
+//         console.log(error);
+//       }
+//     );
+//   }
+// }

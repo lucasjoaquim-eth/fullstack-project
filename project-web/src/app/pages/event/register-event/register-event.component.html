@@ -70,7 +70,13 @@
 
     <mat-dialog-actions align="end">
         <div class="button-row">
-            <button mat-button [disabled]="registerForm.invalid" (click)="add()" mat-dialog-close color="primary">Salvar</button>
+            <ng-container *ngIf="edit; else elseTemplate">
+                <button mat-button [disabled]="registerForm.invalid" (click)="add(true)" mat-dialog-close color="primary">Salvar</button>
+            </ng-container>
+            <ng-template #elseTemplate>
+                <button mat-button [disabled]="registerForm.invalid" (click)="add()" mat-dialog-close color="primary">Salvar</button>
+            </ng-template>
+
             <button mat-button (click)="goToEventList()" color="primary" mat-dialog-close>Fechar</button>
         </div>
     </mat-dialog-actions>

@@ -30,6 +30,8 @@ export class RegisterEventComponent implements OnInit {
   amountPeople: Number;
   registerForm: FormGroup;
 
+  edit: boolean;
+
   event: iEvent;
 
   listEvent: ListEventComponent;
@@ -44,6 +46,16 @@ export class RegisterEventComponent implements OnInit {
 
   ngOnInit() {
     this.titulo = this.route.snapshot.data["titulo"];
+    this.route.params.subscribe(params => {
+      this.idEvent = params["id"];
+      if (this.idEvent) {
+        this.eventService.getEventById(this.idEvent).subscribe(event => {
+          this.event = event;
+          this.registerForm.patchValue(this.event);
+          this.edit = true;
+        });
+      }
+    });
     this.validation();
   }
 
@@ -60,38 +72,50 @@ export class RegisterEventComponent implements OnInit {
       ],
       email: ["", [Validators.required, Validators.email]]
     });
-
-    this.route.params.subscribe(params => {
-      this.idEvent = params["id"];
-      if (this.idEvent) {
-        this.eventService.getEventById(this.idEvent).subscribe(event => {
-          this.event = event;
-          this.registerForm.patchValue(this.event);
-          this.registerForm.controls["id"].disable();
-        });
-      } else {
-        this.goToEventList;
-      }
-    });
   }
 
-  add(): void {
-    this.event = this.registerForm.getRawValue();
-    this.eventService.postEvent(this.event).subscribe(
-      event => {
-        if (event && event.id) {
-          console.log("Evento adicionado com sucesso");
-          this.goToEventList();
-        } else {
-          console.log(
-            "Não foi possível adicionar Evento. Favor verificar os dados"
-          );
+  add(edit?: boolean): void {
+    if (edit) {
+      this.event = Object.assign(
+        { id: this.event.id },
+        this.registerForm.getRawValue()
+      );
+      this.eventService.putEvent(this.event).subscribe(
+        event => {
+          if (event && event.id) {
+            console.log(
+              `Evento ${event.theme} atualizado com sucesso. ID: ${event.id}`
+            );
+            this.goToEventList();
+          } else {
+            console.log(
+              `Não foi possível atualizar o evento ${event.theme}. ID: ${event.id}`
+            );
+          }
+        },
+        error => {
+          console.log(this.event, error);
         }
-      },
-      error => {
-        console.log(error);
-      }
-    );
+      );
+    } else {
+      this.event = this.registerForm.getRawValue();
+
+      this.eventService.postEvent(this.event).subscribe(
+        event => {
+          if (event && event.id) {
+            console.log("Evento adicionado com sucesso");
+            this.goToEventList();
+          } else {
+            console.log(
+              "Não foi possível adicionar Evento. Favor verificar os dados"
+            );
+          }
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
   }
 
   update() {
@@ -113,7 +137,7 @@ export class RegisterEventComponent implements OnInit {
     );
   }
 
-  saveUpdate() {
+  saveUpdate(edit?: boolean) {
     if (this.registerForm.valid) {
       this.event = Object.assign({}, this.registerForm.value);
       this.eventService.postEvent(this.event).subscribe(
@@ -128,7 +152,7 @@ export class RegisterEventComponent implements OnInit {
     }
   }
   goToEventList(): void {
-    this.router.navigate(["/event/list"]);
+    this.router.navigate(["/event"]);
     this.listEvent.getEvents();
   }
   closeDialog() {

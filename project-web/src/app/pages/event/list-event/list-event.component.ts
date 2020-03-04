@@ -41,18 +41,11 @@ export class ListEventComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getEvents();
     this.dataSource = new MatTableDataSource<iEvent>([]);
+    this.getEvents();
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
-
-  openDialog(): void {
-    this.dialog.open(RegisterEventComponent, {
-      width: "500px"
-    });
-  }
-
   getEvents(): void {
     this.eventService.getAllEvent().subscribe(
       events => {
@@ -66,6 +59,20 @@ export class ListEventComponent implements OnInit {
     );
   }
 
+  edit(event: iEvent) {
+    this.router.navigate([`/event/register/${event.id}/edit`]);
+  }
+
+  delete(event: iEvent) {
+    this.router.navigate([`/event/register/${event.id}/delete`]);
+  }
+
+  openDialog(): void {
+    this.dialog.open(RegisterEventComponent, {
+      width: "500px"
+    });
+  }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -73,8 +80,5 @@ export class ListEventComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
-  }
-  goToEventList(): void {
-    this.router.navigate(["/event/list"]);
   }
 }

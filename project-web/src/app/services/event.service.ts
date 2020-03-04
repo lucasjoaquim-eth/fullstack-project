@@ -31,7 +31,7 @@ export class EventService {
   }
   putEvent(event: iEvent): Observable<iEvent> {
     return this.http.put<iEvent>(
-      this.endpoint + "/put/" + event.id,
+      `${this.endpoint}/${event.id}`,
       event,
       this.httpOptions
     );

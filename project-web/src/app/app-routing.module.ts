@@ -5,19 +5,29 @@ import { RegisterEventComponent } from "./pages/event/register-event/register-ev
 
 const routes: Routes = [
   {
-    path: "event/list",
+    path: "",
+    redirectTo: "/event",
+    pathMatch: "full"
+  },
+  {
+    path: "event",
     component: ListEventComponent,
-    data: { titulo: "Listar" }
+    data: { titulo: "Event" }
   },
   {
     path: "event/register",
     component: RegisterEventComponent,
-    data: { titulo: "Cadastrar" }
+    data: { titulo: "Register" }
   },
   {
-    path: "",
-    component: ListEventComponent,
-    data: { titulo: "Listar" }
+    path: "event/register/:id/edit",
+    component: RegisterEventComponent,
+    data: { titulo: "Edit" }
+  },
+  {
+    path: "event/register/:id/delete",
+    component: RegisterEventComponent,
+    data: { titulo: "Delete" }
   }
 ];
 

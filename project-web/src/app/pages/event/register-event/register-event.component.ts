@@ -10,6 +10,7 @@ import { ListEventComponent } from "../list-event/list-event.component";
 import { iEvent } from "../../../models/event";
 import { ActivatedRoute, Router } from "@angular/router";
 import { error } from "@angular/compiler/src/util";
+import { SnackbarService } from "src/app/services/snackbar.service";
 
 @Component({
   selector: "app-register-event",
@@ -39,9 +40,10 @@ export class RegisterEventComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private eventService: EventService,
     private formBuilder: FormBuilder,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private eventService: EventService,
+    private snackbarService: SnackbarService
   ) {}
 
   ngOnInit() {
@@ -83,18 +85,20 @@ export class RegisterEventComponent implements OnInit {
       this.eventService.putEvent(this.event).subscribe(
         event => {
           if (event && event.id) {
-            console.log(
-              `Evento ${event.theme} atualizado com sucesso. ID: ${event.id}`
+            this.snackbarService.message(
+              `Evento ${event.theme} atualizado com sucesso.`
             );
             this.goToEventList();
           } else {
-            console.log(
+            this.snackbarService.message(
               `Não foi possível atualizar o evento ${event.theme}. ID: ${event.id}`
             );
           }
         },
         error => {
-          console.log(this.event, error);
+          this.snackbarService.message(
+            `Erro: ${error}, ao atualizar o evento ${this.event.theme}`
+          );
         }
       );
     } else {
@@ -105,15 +109,15 @@ export class RegisterEventComponent implements OnInit {
       this.eventService.postEvent(this.event).subscribe(
         event => {
           if (event && event.id) {
-            console.log("Evento adicionado com sucesso");
+            this.snackbarService.message("Evento adicionado com sucesso");
           } else {
-            console.log(
+            this.snackbarService.message(
               "Não foi possível adicionar Evento. Favor verificar os dados"
             );
           }
         },
         error => {
-          console.log(error);
+          this.snackbarService.message(error);
         }
       );
     }
@@ -132,11 +136,11 @@ export class RegisterEventComponent implements OnInit {
 //     this.event = Object.assign({}, this.registerForm.value);
 //     this.eventService.postEvent(this.event).subscribe(
 //       (newEvent: iEvent) => {
-//         console.log(newEvent);
+//            this.snackbarService.message(newEvent);
 //         this.goToEventList();
 //       },
 //       error => {
-//         console.log(error);
+//            this.snackbarService.message(error);
 //       }
 //     );
 //   }

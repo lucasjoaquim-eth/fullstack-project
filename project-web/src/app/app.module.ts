@@ -26,6 +26,7 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FlexLayoutModule } from "@angular/flex-layout";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 
 import { DateFormatPipe } from "./helpers/date-format.pipe";
 import { DateTimeFormatPipe } from "./helpers/date-time-format.pipe";
@@ -54,6 +55,7 @@ registerLocaleData(localePt);
   ],
   exports: [],
   imports: [
+    MatSnackBarModule,
     FlexLayoutModule,
     MatDatepickerModule,
     MatNativeDateModule,

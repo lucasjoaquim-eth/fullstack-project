@@ -8,6 +8,7 @@ import { RegisterEventComponent } from "../register-event/register-event.compone
 import { iEvent } from "src/app/models/event";
 import { Router } from "@angular/router";
 import { ConfirmationDialogComponent } from "src/app/components/confirmation-dialog/confirmation-dialog.component";
+import { SnackbarService } from "src/app/services/snackbar.service";
 
 @Component({
   selector: "app-list-event",
@@ -38,7 +39,8 @@ export class ListEventComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private router: Router,
-    private eventService: EventService
+    private eventService: EventService,
+    private snackbarService: SnackbarService
   ) {}
 
   ngOnInit() {
@@ -56,7 +58,7 @@ export class ListEventComponent implements OnInit {
         console.log(events);
       },
       error => {
-        console.log("Erro ao consultar produto: ", error);
+        this.snackbarService.message(`Erro ao consultar produto: ", ${error}`);
       }
     );
   }
@@ -76,20 +78,18 @@ export class ListEventComponent implements OnInit {
       this.eventService.deleteEvent(event.id).subscribe(
         result => {
           if (data && data.confirm && event) {
-            console.log(
-              `Evento ${event.theme} deletado com sucesso. Dados: ${event.id}`
+            this.snackbarService.message(
+              `O evento ${event.theme} foi deletado com sucesso.`
             );
             this.listEvents();
           } else {
-            console.log(
+            this.snackbarService.message(
               `Erro ao deletar ${event.theme}, favor verificar os dados. Dados: ${event.id}`
             );
-            console.log(result);
-            console.log(data);
           }
         },
         error => {
-          console.log(error);
+          this.snackbarService.message(error);
         }
       );
     });

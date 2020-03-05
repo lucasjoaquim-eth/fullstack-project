@@ -98,13 +98,14 @@ export class RegisterEventComponent implements OnInit {
         }
       );
     } else {
-      this.event = this.registerForm.getRawValue();
-
+      this.event = Object.assign(
+        { event: this.event },
+        this.registerForm.getRawValue()
+      );
       this.eventService.postEvent(this.event).subscribe(
         event => {
           if (event && event.id) {
             console.log("Evento adicionado com sucesso");
-            this.goToEventList();
           } else {
             console.log(
               "Não foi possível adicionar Evento. Favor verificar os dados"

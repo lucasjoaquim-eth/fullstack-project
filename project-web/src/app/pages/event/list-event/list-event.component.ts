@@ -73,26 +73,25 @@ export class ListEventComponent implements OnInit {
       }
     });
     confirmationDialog.afterClosed().subscribe(data => {
-      if (data && data.confirm) {
-        this.eventService.deleteEvent(event.id).subscribe(
-          result => {
-            if (result) {
-              console.log(
-                `Evento ${event.theme} deletado com sucesso. Dados: ${event.id}`
-              );
-            } else {
-              console.log(
-                `Erro ao deletar ${event.theme}, favor verificar os dados. Dados: ${event.id}`
-              );
-              console.log(result);
-              console.log(data);
-            }
-          },
-          error => {
-            console.log(error);
+      this.eventService.deleteEvent(event.id).subscribe(
+        result => {
+          if (data && data.confirm && event) {
+            console.log(
+              `Evento ${event.theme} deletado com sucesso. Dados: ${event.id}`
+            );
+            this.listEvents();
+          } else {
+            console.log(
+              `Erro ao deletar ${event.theme}, favor verificar os dados. Dados: ${event.id}`
+            );
+            console.log(result);
+            console.log(data);
           }
-        );
-      }
+        },
+        error => {
+          console.log(error);
+        }
+      );
     });
   }
 

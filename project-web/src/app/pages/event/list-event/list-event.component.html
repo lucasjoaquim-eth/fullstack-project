@@ -17,40 +17,40 @@
 
     <table mat-table [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-            <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+            <th fxLayoutAlign="start center" fxFlex="12" mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+            <td fxLayoutAlign="start center" fxFlex="12" mat-cell *matCellDef="let row"> {{row.id}} </td>
         </ng-container>
 
         <ng-container matColumnDef="imagemUrl">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Imagem </th>
-            <td mat-cell *matCellDef="let row">
+            <th fxLayoutAlign="start center" fxFlex="20" mat-header-cell *matHeaderCellDef mat-sort-header> Imagem </th>
+            <td fxLayoutAlign="start center" fxFlex="20" mat-cell *matCellDef="let row">
                 <img src="http://localhost:5000/img/{{row.imagemUrl}}">
             </td>
         </ng-container>
 
         <ng-container matColumnDef="place">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Local </th>
-            <td mat-cell *matCellDef="let row"> {{row.place}} </td>
+            <th fxLayoutAlign="start center" fxFlex="12" mat-header-cell *matHeaderCellDef mat-sort-header> Local </th>
+            <td fxLayoutAlign="start center" fxFlex="12" mat-cell *matCellDef="let row"> {{row.place}} </td>
         </ng-container>
 
         <ng-container matColumnDef="date">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Data </th>
-            <td mat-cell *matCellDef="let row"> {{row.date | dateTimeFormatPipe}} </td>
+            <th fxLayoutAlign="start center" fxFlex="12" mat-header-cell *matHeaderCellDef mat-sort-header> Data </th>
+            <td fxLayoutAlign="start center" fxFlex="12" mat-cell *matCellDef="let row"> {{row.date | dateTimeFormatPipe}} </td>
         </ng-container>
 
         <ng-container matColumnDef="theme">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Tema </th>
-            <td mat-cell *matCellDef="let row"> {{row.theme}} </td>
+            <th fxLayoutAlign="start center" fxFlex="12" mat-header-cell *matHeaderCellDef mat-sort-header> Tema </th>
+            <td fxLayoutAlign="start center" fxFlex="12" mat-cell *matCellDef="let row"> {{row.theme}} </td>
         </ng-container>
 
         <ng-container matColumnDef="amountPeople">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Público </th>
-            <td mat-cell *matCellDef="let row"> {{row.amountPeople}} </td>
+            <th fxLayoutAlign="start center" fxFlex="12" mat-header-cell *matHeaderCellDef mat-sort-header> Público </th>
+            <td fxLayoutAlign="start center" fxFlex="12" mat-cell *matCellDef="let row"> {{row.amountPeople}} </td>
         </ng-container>
 
         <ng-container matColumnDef="lots">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Lotes </th>
-            <td mat-cell *matCellDef="let row">
+            <th fxLayoutAlign="start center" fxFlex="12" mat-header-cell *matHeaderCellDef mat-sort-header> Lotes </th>
+            <td fxLayoutAlign="start center" fxFlex="12" mat-cell *matCellDef="let row">
                 <div *ngIf="!(row.lots.length)">
                     Não informado
                 </div>
@@ -61,18 +61,18 @@
         </ng-container>
 
         <ng-container matColumnDef="phone">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Contato </th>
-            <td mat-cell *matCellDef="let row "> {{row.phone}} </td>
+            <th fxLayoutAlign="start center" fxFlex="12" mat-header-cell *matHeaderCellDef mat-sort-header> Contato </th>
+            <td fxLayoutAlign="start center" fxFlex="12" mat-cell *matCellDef="let row "> {{row.phone}} </td>
         </ng-container>
 
         <ng-container matColumnDef="email">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
-            <td mat-cell *matCellDef="let row "> {{row.email}} </td>
+            <th fxLayoutAlign="start center" fxFlex="12" mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+            <td fxLayoutAlign="start center" fxFlex="12" mat-cell *matCellDef="let row "> {{row.email}} </td>
         </ng-container>
 
         <ng-container matColumnDef="options">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
-            <td mat-cell *matCellDef="let row">
+            <th fxLayoutAlign="end center" fxFlex="12" mat-header-cell *matHeaderCellDef mat-sort-header></th>
+            <td fxLayoutAlign="end center" fxFlex="12" mat-cell *matCellDef="let row">
                 <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Menu Edição">
                   <mat-icon>more_vert</mat-icon>
               </button>

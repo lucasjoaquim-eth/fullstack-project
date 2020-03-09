@@ -66,7 +66,7 @@ export class RegisterEventComponent implements OnInit {
       imagemUrl: ["", [Validators.required]],
       date: ["", [Validators.required]],
       place: ["", [Validators.required]],
-      amountPeople: ["", [Validators.required, Validators.maxLength(1200)]],
+      amountPeople: [""],
       phone: ["", [Validators.required]],
       theme: [
         "",

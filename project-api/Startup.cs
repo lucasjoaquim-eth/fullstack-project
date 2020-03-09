@@ -16,6 +16,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using project.repository.data;
 using project.repository;
+using AutoMapper;
 
 namespace project.api
 {
@@ -38,6 +39,7 @@ namespace project.api
             services.AddScoped<iProjectRepository, ProjectRepository>();
             services.AddScoped<iEventRepository, EventRepository>();
             services.AddScoped<iSpeakerRepository, SpeakerRepository>();
+            services.AddAutoMapper();
             services.AddMvc();
             services.AddCors();
         }

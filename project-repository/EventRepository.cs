@@ -26,7 +26,7 @@ namespace project.repository
                     .Include(se => se.SpeakerEvents)
                     .ThenInclude(s => s.Speaker);
             }
-            query = query.OrderByDescending(d => d.Date);
+            query = query.OrderBy(i => i.Id);
             return await query.ToArrayAsync();
         }
 
@@ -41,7 +41,7 @@ namespace project.repository
                     .Include(se => se.SpeakerEvents)
                     .ThenInclude(s => s.Speaker);
             }
-            query = query.OrderByDescending(d => d.Date)
+            query = query.OrderBy(i => i.Id)
                          .Where(t => t.Theme.ToLower().Contains(theme.ToLower()));
             return await query.ToArrayAsync();
         }

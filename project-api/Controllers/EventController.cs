@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using project.repository.data;
 using project.domain;
 using project.repository;
+using AutoMapper;
+using project.api.Dtos;
 
 namespace project.api.Controllers
 {
@@ -19,11 +21,13 @@ namespace project.api.Controllers
     {
         private readonly iEventRepository _eventRepository;
         private readonly iProjectRepository _projectRepository;
+        private readonly IMapper _mapper;
 
-        public EventController(iEventRepository eventRepository, iProjectRepository projectRepository)
+        public EventController(iEventRepository eventRepository, iProjectRepository projectRepository, IMapper mapper)
         {
             _eventRepository = eventRepository;
             _projectRepository = projectRepository;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -31,12 +35,15 @@ namespace project.api.Controllers
         {
             try
             {
-                var results = await _eventRepository.GetAllEventAsync(true);
+                var _events = await _eventRepository.GetAllEventAsync(true);
+
+                var results = _mapper.Map<EventDto[]>(_events);
+
                 return Ok(results);
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, "Banco de dados Falhou");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Banco de dados Falhou {ex.Message}");
             }
         }
 
@@ -45,7 +52,10 @@ namespace project.api.Controllers
         {
             try
             {
-                var results = await _eventRepository.GetEventAsyncById(EventId, true);
+                var _event = await _eventRepository.GetEventAsyncById(EventId, true);
+
+                var results = _mapper.Map<EventDto>(_event);
+
                 return Ok(results);
             }
             catch (System.Exception)
@@ -59,35 +69,41 @@ namespace project.api.Controllers
         {
             try
             {
-                var results = await _eventRepository.GetAllEventAsyncByTheme(theme, true);
+                var _events = await _eventRepository.GetAllEventAsyncByTheme(theme, true);
+
+                var results = _mapper.Map<Event[]>(_events);
+
                 return Ok(results);
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, "Banco de dados Falhou");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Banco de dados Falhou {ex.Message}");
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(Event modelEvent)
+        public async Task<IActionResult> Post(EventDto model)
         {
             try
             {
-                _projectRepository.Add(modelEvent);
+                var _event = _mapper.Map<Event>(model);
+
+                _projectRepository.Add(_event);
+
                 if (await _projectRepository.SaveChangesAsync())
                 {
-                    return Created($"/api/event/{modelEvent.Id}", modelEvent);
+                    return Created($"/api/event/{model.Id}", _mapper.Map<EventDto>(_event));
                 }
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, "Banco de dados Falhou");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Banco de dados Falhou, {ex.Message}");
             }
             return BadRequest();
         }
 
         [HttpPut("{EventId}")]
-        public async Task<IActionResult> Put(int EventId, Event modelEvent)
+        public async Task<IActionResult> Put(int EventId, EventDto model)
         {
             try
             {
@@ -97,15 +113,19 @@ namespace project.api.Controllers
                 {
                     return NotFound();
                 }
-                _projectRepository.Update(modelEvent);
+
+                _mapper.Map(model, _event);
+
+                _projectRepository.Update(_event);
+
                 if (await _projectRepository.SaveChangesAsync())
                 {
-                    return Created($"/api/event/{modelEvent.Id}", modelEvent);
+                    return Created($"/api/event/{model.Id}", _mapper.Map<EventDto>(_event));
                 }
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, "Banco de dados Falhou");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Banco de dados Falhou, {ex.Message}");
             }
             return BadRequest();
         }
@@ -125,9 +145,9 @@ namespace project.api.Controllers
                     return Ok();
                 }
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, "Banco de dados Falhou");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Banco de dados Falhou: {ex.Message}");
             }
             return BadRequest();
         }

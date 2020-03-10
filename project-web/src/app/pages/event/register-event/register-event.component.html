@@ -74,7 +74,7 @@
                 <button mat-button [disabled]="registerForm.invalid" (click)="add(true)" mat-dialog-close color="primary">Salvar</button>
             </ng-container>
             <ng-template #elseTemplate>
-                <button mat-button [disabled]="registerForm.invalid" (click)="add()" mat-dialog-close color="primary">Salvar</button>
+                <button mat-button [disabled]="registerForm.invalid" (click)="add()" (click)="goToEventList()" mat-dialog-close color="primary">Salvar</button>
             </ng-template>
 
             <button mat-button (click)="goToEventList()" color="primary" mat-dialog-close>Fechar</button>

@@ -94,5 +94,9 @@
 
     </table>
 
+    <span fxLayoutAlign="center center" *ngIf="events.length == 0">
+      <mat-icon>not_interested</mat-icon>
+        Nenhum evento encontrado!
+    </span>
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100] "></mat-paginator>
 </div>

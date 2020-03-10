@@ -55,10 +55,9 @@ export class ListEventComponent implements OnInit {
       events => {
         this.events = events;
         this.dataSource.data = events;
-        console.log(events);
       },
       error => {
-        this.snackbarService.message(`Erro ao consultar produto: ", ${error}`);
+        this.snackbarService.message("Erro ao tentar carregar eventos");
       }
     );
   }
@@ -89,7 +88,9 @@ export class ListEventComponent implements OnInit {
           }
         },
         error => {
-          this.snackbarService.message(error);
+          this.snackbarService.message(
+            `Erro ${error} ao deletar ${event.theme}`
+          );
         }
       );
     });

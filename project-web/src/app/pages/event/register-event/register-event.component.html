@@ -1,6 +1,5 @@
+<app-title [title]="'Cadastrar Eventos'"></app-title>
 <div class="example-form" fxLayout="column" fxLayoutAlign="center center">
-    <h2 mat-dialog-title>
-        {{title}}</h2>
     <mat-form [formGroup]="registerForm">
         <mat-form-field class="example-full-width">
             <input matInput type="text" placeholder="Imagem" [(ngModel)]="imagemUrl" formControlName="imagemUrl">

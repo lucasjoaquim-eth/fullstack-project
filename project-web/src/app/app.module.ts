@@ -44,6 +44,7 @@ import { RegisterEventComponent } from "./pages/event/register-event/register-ev
 import { ListEventComponent } from "./pages/event/list-event/list-event.component";
 import { RegisterSpeakerComponent } from "./pages/speaker/register-speaker/register-speaker.component";
 import { ListSpeakerComponent } from "./pages/speaker/list-speaker/list-speaker.component";
+import { TitleComponent } from './pages/title/title.component';
 
 registerLocaleData(localePt);
 @NgModule({
@@ -57,7 +58,8 @@ registerLocaleData(localePt);
     ConfirmationDialogComponent,
     HomeComponent,
     ListSpeakerComponent,
-    RegisterSpeakerComponent
+    RegisterSpeakerComponent,
+    TitleComponent
   ],
   exports: [],
   imports: [

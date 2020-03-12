@@ -108,7 +108,7 @@ export class RegisterEventComponent implements OnInit {
             this.snackbarService.message(
               `Evento ${event.theme} atualizado com sucesso.`
             );
-            this.dialogRef.close(this.listEvent.listEvents());
+            this.dialogRef.close(event);
           } else {
             this.snackbarService.message(
               `Não foi possível atualizar o evento ${event.theme}. ID: ${event.id}`

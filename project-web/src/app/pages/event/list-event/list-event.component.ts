@@ -65,15 +65,15 @@ export class ListEventComponent implements OnInit {
   }
 
   edit(event: iEvent): void {
-    //    this.router.navigate([`/event/register/${event.id}/edit`]);
-    this.dialog.open(RegisterEventComponent, {
+    let registerDialog = this.dialog.open(RegisterEventComponent, {
       data: {
         event: event
       }
     });
-    this.versaoEventDialogRef.afterClosed().subscribe(versaoEventRef => {
+    registerDialog.afterClosed().subscribe(versaoEventRef => {
       if (versaoEventRef) {
         event = versaoEventRef;
+        this.listEvents();
       } else {
         console.log(event);
       }

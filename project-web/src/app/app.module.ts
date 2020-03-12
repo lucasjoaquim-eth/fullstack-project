@@ -38,9 +38,12 @@ import { EventService } from "./services/event.service";
 
 import { AppComponent } from "./app.component";
 import { NavComponent } from "./pages/nav/nav.component";
+import { ConfirmationDialogComponent } from "./components/confirmation-dialog/confirmation-dialog.component";
+import { HomeComponent } from "./pages/home/home.component";
 import { RegisterEventComponent } from "./pages/event/register-event/register-event.component";
 import { ListEventComponent } from "./pages/event/list-event/list-event.component";
-import { ConfirmationDialogComponent } from "./components/confirmation-dialog/confirmation-dialog.component";
+import { RegisterSpeakerComponent } from "./pages/speaker/register-speaker/register-speaker.component";
+import { ListSpeakerComponent } from "./pages/speaker/list-speaker/list-speaker.component";
 
 registerLocaleData(localePt);
 @NgModule({
@@ -51,7 +54,10 @@ registerLocaleData(localePt);
     DateFormatPipe,
     RegisterEventComponent,
     ListEventComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    HomeComponent,
+    ListSpeakerComponent,
+    RegisterSpeakerComponent
   ],
   exports: [],
   imports: [

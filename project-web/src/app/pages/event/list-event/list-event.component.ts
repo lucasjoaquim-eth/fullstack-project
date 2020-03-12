@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, Inject } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
-import { MatDialog } from "@angular/material/dialog";
+import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { EventService } from "src/app/services/event.service";
 import { RegisterEventComponent } from "../register-event/register-event.component";
 import { iEvent } from "src/app/models/event";
@@ -19,6 +19,8 @@ export class ListEventComponent implements OnInit {
   dataSource: MatTableDataSource<iEvent>;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
+
+  versaoEventDialogRef: MatDialogRef<RegisterEventComponent>;
 
   displayedColumns: string[] = [
     "imagemUrl",
@@ -62,8 +64,20 @@ export class ListEventComponent implements OnInit {
     );
   }
 
-  edit(event: iEvent) {
-    this.router.navigate([`/event/register/${event.id}/edit`]);
+  edit(event: iEvent): void {
+    //    this.router.navigate([`/event/register/${event.id}/edit`]);
+    this.dialog.open(RegisterEventComponent, {
+      data: {
+        event: event
+      }
+    });
+    this.versaoEventDialogRef.afterClosed().subscribe(versaoEventRef => {
+      if (versaoEventRef) {
+        event = versaoEventRef;
+      } else {
+        console.log(event);
+      }
+    });
   }
 
   delete(event: iEvent) {

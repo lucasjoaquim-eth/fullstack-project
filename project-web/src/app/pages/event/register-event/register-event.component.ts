@@ -3,13 +3,13 @@ import { Validators, FormGroup, FormBuilder } from "@angular/forms";
 import {
   MatDialogRef,
   MatDialog,
-  MatDialogClose
+  MatDialogClose,
+  MAT_DIALOG_DATA
 } from "@angular/material/dialog";
 import { EventService } from "src/app/services/event.service";
 import { ListEventComponent } from "../list-event/list-event.component";
 import { iEvent } from "../../../models/event";
 import { ActivatedRoute, Router } from "@angular/router";
-import { error } from "@angular/compiler/src/util";
 import { SnackbarService } from "src/app/services/snackbar.service";
 
 @Component({
@@ -38,27 +38,47 @@ export class RegisterEventComponent implements OnInit {
   listEvent: ListEventComponent;
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private route: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder,
     private dialog: MatDialog,
+    private dialogRef: MatDialogRef<RegisterEventComponent>,
     private eventService: EventService,
     private snackbarService: SnackbarService
   ) {}
 
   ngOnInit() {
     this.titulo = this.route.snapshot.data["titulo"];
-    this.route.params.subscribe(params => {
-      this.idEvent = params["id"];
-      if (this.idEvent) {
-        this.eventService.getEventById(this.idEvent).subscribe(event => {
-          this.event = event;
-          this.registerForm.patchValue(this.event);
-          this.edit = true;
-        });
-      }
-    });
+    // this.route.params.subscribe(params => {
+    //   this.idEvent = params["id"];
+    //   if (this.idEvent) {
+    //     this.eventService.getEventById(this.idEvent).subscribe(event => {
+    //       this.event = event;
+    //       this.registerForm.patchValue(this.event);
+    //       this.edit = true;
+    //     });
+    //   }
+    // });
     this.validation();
+    this.carregar(this.data.event);
+  }
+
+  carregar(_event: iEvent) {
+    this.eventService.getEventById(_event.id).subscribe(_event => {
+      if (_event) {
+        this.event = _event;
+        this.registerForm.patchValue(this.event);
+        this.edit = true;
+      } else {
+        this.snackbarService.message("Erro ao atualizar");
+      }
+    }),
+      error => {
+        this.snackbarService.message(
+          `Erro: ${error}, ao atualizar o evento ${this.event.id}`
+        );
+      };
   }
 
   validation() {
@@ -88,8 +108,7 @@ export class RegisterEventComponent implements OnInit {
             this.snackbarService.message(
               `Evento ${event.theme} atualizado com sucesso.`
             );
-            this.listEvent.listEvents();
-            this.goToEventList();
+            this.dialogRef.close(this.listEvent.listEvents());
           } else {
             this.snackbarService.message(
               `Não foi possível atualizar o evento ${event.theme}. ID: ${event.id}`

@@ -17,6 +17,9 @@ using Microsoft.EntityFrameworkCore;
 using project.repository.data;
 using project.repository;
 using AutoMapper;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace project.api
 {
@@ -56,6 +59,11 @@ namespace project.api
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
+                RequestPath = new PathString("/resources")
+            });
 
             app.UseRouting();
 

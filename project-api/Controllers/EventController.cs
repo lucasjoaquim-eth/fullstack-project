@@ -1,17 +1,19 @@
-using Microsoft.VisualBasic.CompilerServices;
+using System.Net.Http.Headers;
 using System;
-using System.Diagnostics;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
-using project.repository.data;
+using AutoMapper;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic.CompilerServices;
+using project.api.Dtos;
 using project.domain;
 using project.repository;
-using AutoMapper;
-using project.api.Dtos;
+using project.repository.data;
 
 namespace project.api.Controllers
 {
@@ -81,6 +83,33 @@ namespace project.api.Controllers
             }
         }
 
+        [HttpPost("Upload")]
+        public async Task<IActionResult> Upload()
+        {
+            try
+            {
+                var file = Request.Form.Files[0];
+                var folder = Path.Combine("Resources", "Images");
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folder);
+
+                if (file.Length > 0)
+                {
+                    var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName;
+                    var fullPath = Path.Combine(pathToSave, fileName.Replace("\"", " ").Trim());
+                    using (var stream = new FileStream(fullPath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+                }
+                return Ok();
+            }
+            catch (System.Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Banco de dados Falhou {ex.Message}");
+            }
+            return BadRequest("Erro ao tentar realizar upload");
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post(EventDto model)
         {
@@ -129,6 +158,7 @@ namespace project.api.Controllers
             }
             return BadRequest();
         }
+
         [HttpDelete("{EventId}")]
         public async Task<IActionResult> Delete(int EventId)
         {

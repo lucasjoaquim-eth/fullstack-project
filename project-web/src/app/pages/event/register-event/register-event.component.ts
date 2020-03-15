@@ -130,7 +130,6 @@ export class RegisterEventComponent implements OnInit {
         event => {
           if (event && event.id) {
             this.snackbarService.message("Evento adicionado com sucesso");
-            this.listEvent.listEvents();
           } else {
             this.snackbarService.message(
               "Não foi possível adicionar Evento. Favor verificar os dados"

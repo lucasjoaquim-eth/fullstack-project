@@ -1,6 +1,6 @@
 <app-title [title]="'Eventos'"></app-title>
 <div fxLayout="row" fxLayoutAlign="space-between center">
-    <button (click)="openDialog()" class="mat-elevation-z1" mat-button color="primary">
+    <button (click)="registerDialog()" class="mat-elevation-z1" mat-button color="primary">
     <mat-icon>add</mat-icon>
      Adicionar
     </button>
@@ -78,11 +78,11 @@
                   <mat-icon>more_vert</mat-icon>
               </button>
                 <mat-menu #menu="matMenu">
-                    <button mat-menu-item (click)="edit(row)">
+                    <button mat-menu-item (click)="editDialog(row)">
                      <mat-icon>edit</mat-icon>
                      <span>Editar</span>
                   </button>
-                    <button mat-menu-item (click)="delete(row)">
+                    <button mat-menu-item (click)="deleteDialog(row)">
                      <mat-icon>delete_outline</mat-icon>
                       <span>Apagar</span>
                   </button>

@@ -64,7 +64,11 @@ export class ListEventComponent implements OnInit {
     );
   }
 
-  edit(event: iEvent): void {
+  registerDialog(): void {
+    this.dialog.open(RegisterEventComponent, {});
+  }
+
+  editDialog(event: iEvent): void {
     let registerDialog = this.dialog.open(RegisterEventComponent, {
       data: {
         event: event
@@ -80,7 +84,7 @@ export class ListEventComponent implements OnInit {
     });
   }
 
-  delete(event: iEvent) {
+  deleteDialog(event: iEvent) {
     let confirmationDialog = this.dialog.open(ConfirmationDialogComponent, {
       data: {
         title: "Deletar evento",
@@ -109,13 +113,6 @@ export class ListEventComponent implements OnInit {
       );
     });
   }
-
-  openDialog(): void {
-    this.dialog.open(RegisterEventComponent, {
-      width: "500px"
-    });
-  }
-
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();

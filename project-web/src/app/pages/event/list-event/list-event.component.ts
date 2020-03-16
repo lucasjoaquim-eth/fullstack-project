@@ -79,7 +79,9 @@ export class ListEventComponent implements OnInit {
         event = versaoEventRef;
         this.listEvents();
       } else {
-        console.log(event);
+        this.snackbarService.message(
+          "Não foi possível atualizar a versão e listar"
+        );
       }
     });
   }

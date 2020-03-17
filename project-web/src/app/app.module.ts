@@ -27,6 +27,7 @@ import { MatNativeDateModule } from "@angular/material/core";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { MatProgressBarModule } from "@angular/material/progress-bar";
 
 import { DateFormatPipe } from "./helpers/date-format.pipe";
 import { DateTimeFormatPipe } from "./helpers/date-time-format.pipe";
@@ -44,7 +45,7 @@ import { RegisterEventComponent } from "./pages/event/register-event/register-ev
 import { ListEventComponent } from "./pages/event/list-event/list-event.component";
 import { RegisterSpeakerComponent } from "./pages/speaker/register-speaker/register-speaker.component";
 import { ListSpeakerComponent } from "./pages/speaker/list-speaker/list-speaker.component";
-import { TitleComponent } from './pages/title/title.component';
+import { TitleComponent } from "./pages/title/title.component";
 
 registerLocaleData(localePt);
 @NgModule({
@@ -63,6 +64,7 @@ registerLocaleData(localePt);
   ],
   exports: [],
   imports: [
+    MatProgressBarModule,
     MatSnackBarModule,
     FlexLayoutModule,
     MatDatepickerModule,

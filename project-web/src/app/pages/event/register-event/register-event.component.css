@@ -2,3 +2,10 @@
 .button-row a {
     margin-right: 8px;
 }
+
+ul,
+li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}

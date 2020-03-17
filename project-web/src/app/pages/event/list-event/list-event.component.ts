@@ -69,19 +69,20 @@ export class ListEventComponent implements OnInit {
   }
 
   editDialog(event: iEvent): void {
-    let registerDialog = this.dialog.open(RegisterEventComponent, {
+    this.versaoEventDialogRef = this.dialog.open(RegisterEventComponent, {
       data: {
         event: event
       }
     });
-    registerDialog.afterClosed().subscribe(versaoEventRef => {
+    this.versaoEventDialogRef.afterClosed().subscribe(versaoEventRef => {
       if (versaoEventRef) {
-        event = versaoEventRef;
-        this.listEvents();
+        event.theme = versaoEventRef.theme;
+        console.log(versaoEventRef);
       } else {
         this.snackbarService.message(
           "Não foi possível atualizar a versão e listar"
         );
+        console.log(versaoEventRef);
       }
     });
   }

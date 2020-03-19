@@ -1,9 +1,12 @@
-import { Component, OnInit, Inject } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  Inject,
+} from "@angular/core";
 import { Validators, FormGroup, FormBuilder } from "@angular/forms";
 import {
   MatDialogRef,
   MatDialog,
-  MatDialogClose,
   MAT_DIALOG_DATA
 } from "@angular/material/dialog";
 import { EventService } from "src/app/services/event.service";
@@ -20,6 +23,11 @@ import { SnackbarService } from "src/app/services/snackbar.service";
 export class RegisterEventComponent implements OnInit {
   title = "Cadastro de Eventos";
   titulo: string = "";
+  event: iEvent;
+  listEvent: ListEventComponent;
+  edit: boolean;
+  files = [];
+  file: File;
 
   idEvent: number;
   imagemUrl: string;
@@ -31,12 +39,6 @@ export class RegisterEventComponent implements OnInit {
   amountPeople: Number;
   registerForm: FormGroup;
 
-  edit: boolean;
-
-  event: iEvent;
-
-  listEvent: ListEventComponent;
-
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private route: ActivatedRoute,
@@ -45,55 +47,59 @@ export class RegisterEventComponent implements OnInit {
     private dialog: MatDialog,
     private dialogRef: MatDialogRef<RegisterEventComponent>,
     private eventService: EventService,
-    private snackbarService: SnackbarService
+    private snackbarService: SnackbarService,
   ) {}
 
   ngOnInit() {
     this.titulo = this.route.snapshot.data["titulo"];
-    // this.route.params.subscribe(params => {
-    //   this.idEvent = params["id"];
-    //   if (this.idEvent) {
-    //     this.eventService.getEventById(this.idEvent).subscribe(event => {
-    //       this.event = event;
-    //       this.registerForm.patchValue(this.event);
-    //       this.edit = true;
-    //     });
-    //   }
-    // });
     this.validation();
-    this.carregar(this.data.event);
+    if(this.data){
+       this.carregar(this.data.event.id);
+    }
   }
-
-  carregar(_event: iEvent) {
-    this.eventService.getEventById(_event.id).subscribe(_event => {
-      if (_event) {
-        this.event = _event;
-        this.registerForm.patchValue(this.event);
-        this.edit = true;
-      } else {
-        this.snackbarService.message("Erro ao atualizar");
-      }
-    }),
-      error => {
-        this.snackbarService.message(
-          `Erro: ${error}, ao atualizar o evento ${this.event.id}`
-        );
-      };
-  }
-
   validation() {
     this.registerForm = this.formBuilder.group({
-      imagemUrl: ["", [Validators.required]],
-      date: ["", [Validators.required]],
-      place: ["", [Validators.required]],
-      amountPeople: [""],
-      phone: ["", [Validators.required]],
+      imagemUrl: ['',[Validators.required]],
+      date: [Validators.required],
+      place: ["Ibirapuera", [Validators.required]],
+      amountPeople: [30, [Validators.required]],
+      phone: ["953881222", [Validators.required]],
       theme: [
-        "",
+        "Dotnet Angular",
         [Validators.required, Validators.minLength(3), Validators.maxLength(50)]
       ],
       email: ["", [Validators.required, Validators.email]]
     });
+  }
+  carregar(idEvent: number) {
+    this.eventService.getEventById(idEvent).subscribe(_event => {
+      if (_event && _event.id) {
+        this.event = _event;
+        this.registerForm.patchValue(this.event);
+        this.edit = true;
+      } else {
+        this.snackbarService.message("Não existe esse evento");
+      }
+    }),
+      error => {
+        this.snackbarService.message(
+          `Erro: ${error}, ao consultar o evento ${this.event.id}`
+        );
+      };
+  }
+
+  onFileChange(event){
+    const reader  = new FileReader();
+    if(event.target.files && event.target.files.length){
+        this.file = event.target.files;
+        console.log(this.file);
+    }
+  }
+
+  uploadImagem(){
+    const fileName = this.file[0].name;
+    this.event.imagemURL = fileName;
+    this.eventService.postFile(this.file, fileName).subscribe();
   }
 
   add(edit?: boolean): void {
@@ -102,6 +108,7 @@ export class RegisterEventComponent implements OnInit {
         { id: this.event.id },
         this.registerForm.getRawValue()
       );
+      this.uploadImagem();
       this.eventService.putEvent(this.event).subscribe(
         event => {
           if (event && event.id) {
@@ -126,6 +133,7 @@ export class RegisterEventComponent implements OnInit {
         { event: this.event },
         this.registerForm.getRawValue()
       );
+      this.uploadImagem();
       this.eventService.postEvent(this.event).subscribe(
         event => {
           if (event && event.id) {
@@ -146,22 +154,8 @@ export class RegisterEventComponent implements OnInit {
   goToEventList(): void {
     this.router.navigate(["/event"]);
   }
+
   closeDialog() {
     this.dialog.closeAll();
   }
 }
-
-// saveUpdate(edit?: boolean) {
-//   if (this.registerForm.valid) {
-//     this.event = Object.assign({}, this.registerForm.value);
-//     this.eventService.postEvent(this.event).subscribe(
-//       (newEvent: iEvent) => {
-//            this.snackbarService.message(newEvent);
-//         this.goToEventList();
-//       },
-//       error => {
-//            this.snackbarService.message(error);
-//       }
-//     );
-//   }
-// }

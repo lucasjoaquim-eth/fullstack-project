@@ -3,11 +3,7 @@
        <strong>Project WebApi</strong>
     </button>
     <span class="fill-space"></span>
-    <button mat-button [matMenuTriggerFor]="menuEvent">Eventos</button>
-    <mat-menu #menuEvent="matMenu">
-        <button mat-menu-item routerLink="/event/">Listar</button>
-        <button mat-menu-item routerLink="/event/register">Cadastrar</button>
-    </mat-menu>
+    <button mat-button routerLink="/event/">Eventos</button>
     <button mat-button [matMenuTriggerFor]="menuSpeaker">Palestrantes</button>
     <mat-menu #menuSpeaker="matMenu">
         <button mat-menu-item routerLink="/speaker/">Listar</button>

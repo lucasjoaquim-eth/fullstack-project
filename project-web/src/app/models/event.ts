@@ -8,7 +8,7 @@ export interface iEvent {
   place: string;
   theme: string;
   amountPeople: number;
-  imagemURL: string;
+  imagemUrl: string;
   phone: string;
   email: string;
   lots: iLot[];

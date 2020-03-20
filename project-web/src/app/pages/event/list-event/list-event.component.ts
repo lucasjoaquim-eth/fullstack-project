@@ -6,7 +6,6 @@ import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { EventService } from "src/app/services/event.service";
 import { RegisterEventComponent } from "../register-event/register-event.component";
 import { iEvent } from "src/app/models/event";
-import { Router } from "@angular/router";
 import { ConfirmationDialogComponent } from "src/app/components/confirmation-dialog/confirmation-dialog.component";
 import { SnackbarService } from "src/app/services/snackbar.service";
 
@@ -20,7 +19,6 @@ export class ListEventComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  versaoEventDialogRef: MatDialogRef<RegisterEventComponent>;
   events: iEvent[] = [];
   registerEvent: RegisterEventComponent;
 
@@ -39,13 +37,12 @@ export class ListEventComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private router: Router,
     private eventService: EventService,
     private snackbarService: SnackbarService
   ) {}
 
   ngOnInit() {
-    this.dataSource = new MatTableDataSource<iEvent>([]);
+    this.dataSource = new MatTableDataSource<iEvent>();
     this.listEvents();
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -64,14 +61,56 @@ export class ListEventComponent implements OnInit {
   }
 
   registerDialog(): void {
-    this.dialog.open(RegisterEventComponent, {});
+    let registerDialog = this.dialog.open(RegisterEventComponent, {});
+    registerDialog.afterClosed().subscribe(event => {
+      console.log("Event: ", event);
+
+      this.eventService.postEvent(event).subscribe(
+        result => {
+          if (event) {
+            this.snackbarService.message(`Evento ${event.theme} adicionado com sucesso`);
+            this.listEvents();
+          } else {
+            this.snackbarService.message(
+              `Não foi possível adicionar o evento ${event.theme}. Favor verificar os dados`
+            );
+          }
+        },
+        error => {
+          this.snackbarService.message(`Erro ao salvar: ${error}`);
+        }
+      );
+    });
   }
 
   editDialog(event: iEvent): void {
-     this.dialog.open(RegisterEventComponent, {
+    let editDialog = this.dialog.open(RegisterEventComponent, {
       data: {
-          event: event
+        event: event
       }
+    });
+    editDialog.afterClosed().subscribe(event => {
+      console.log("Event: ", event);
+
+      this.eventService.putEvent(event).subscribe(
+        result => {
+          if (event && event.id) {
+            this.snackbarService.message(
+              `Evento ${event.theme} atualizado com sucesso.`
+            );
+            this.listEvents();
+          } else {
+            this.snackbarService.message(
+              `Não foi possível atualizar o evento ${event.theme}. ID: ${event.id}`
+            );
+          }
+        },
+        error => {
+          this.snackbarService.message(
+            `Erro: ${error}, ao atualizar o evento ${event.theme}`
+          );
+        }
+      );
     });
   }
 

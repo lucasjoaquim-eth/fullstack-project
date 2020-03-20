@@ -1,6 +1,6 @@
-import {  Component,  OnInit,  Inject,} from "@angular/core";
+import { Component, OnInit, Inject } from "@angular/core";
 import { Validators, FormGroup, FormBuilder } from "@angular/forms";
-import { MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { EventService } from "src/app/services/event.service";
 import { ListEventComponent } from "../list-event/list-event.component";
 import { iEvent } from "../../../models/event";
@@ -20,6 +20,7 @@ export class RegisterEventComponent implements OnInit {
   edit: boolean;
   files = [];
   file: File;
+  fileNameToUpdate: string;
 
   idEvent: number;
   imagemUrl: string;
@@ -33,18 +34,20 @@ export class RegisterEventComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
+    public dialogRef: MatDialogRef<RegisterEventComponent>,
     private route: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder,
     private eventService: EventService,
-    private snackbarService: SnackbarService,
+    private snackbarService: SnackbarService
   ) {}
 
   ngOnInit() {
     this.titulo = this.route.snapshot.data["titulo"];
     this.validation();
-    if(this.data){
-       this.loadEvent(this.data.event);
+    if (this.data) {
+      this.loadEvent(this.data.event);
+      this.edit = true;
     }
   }
   validation() {
@@ -63,74 +66,44 @@ export class RegisterEventComponent implements OnInit {
   }
 
   loadEvent(event: iEvent) {
-    this.edit = true;
-    this.event = Object.assign({},event);
+    this.event = Object.assign({}, event);
+    this.fileNameToUpdate = event.imagemUrl;
     this.registerForm.patchValue(this.event);
   }
 
-  onFileChange(event){
-    const reader  = new FileReader();
-    if(event.target.files && event.target.files.length){
-        this.file = event.target.files;
-        console.log(this.file);
+  onFileChange(event) {
+    const reader = new FileReader();
+    if (event.target.files && event.target.files.length) {
+      this.file = event.target.files;
+      console.log(this.file);
     }
   }
 
-  uploadImagem(){
-    const fileName = this.file[0].name;
-    this.event.imagemURL = fileName;
-    this.eventService.postFile(this.file, fileName).subscribe();
+  uploadImagem() {
+    if (this.edit) {
+      this.eventService.postFile(this.file, this.fileNameToUpdate)
+    } else {
+      const fileName = this.file[0].name;
+      this.event.imagemUrl = fileName;
+      this.eventService.postFile(this.file, fileName);
+    }
   }
 
   add(): void {
-      this.event = Object.assign(
-        { event: this.event },
-        this.registerForm.getRawValue()
-      );
-      this.uploadImagem();
-      this.eventService.postEvent(this.event).subscribe(
-        event => {
-          if (event && event.id) {
-            this.snackbarService.message("Evento adicionado com sucesso");
-          } else {
-            this.snackbarService.message(
-              "Não foi possível adicionar Evento. Favor verificar os dados"
-            );
-          }
-        },
-        error => {
-          this.snackbarService.message(`Erro ao salvar: ${error}`);
-        }
-      );
-  }
-
-  put(){
     this.event = Object.assign(
-      { id: this.event.id },
+      { event: this.event },
       this.registerForm.getRawValue()
     );
     this.uploadImagem();
-    this.eventService.putEvent(this.event).subscribe(
-      event => {
-        if (event && event.id) {
-          this.snackbarService.message(
-            `Evento ${event.theme} atualizado com sucesso.`
-          );
-        } else {
-          this.snackbarService.message(
-            `Não foi possível atualizar o evento ${event.theme}. ID: ${event.id}`
-          );
-        }
-      },
-      error => {
-        this.snackbarService.message(
-          `Erro: ${error}, ao atualizar o evento ${this.event.theme}`
-        );
-      }
-    );
+    this.dialogRef.close(this.event);
   }
 
-  goToEventList(): void {
-    this.router.navigate(["/event"]);
+  put() {
+    this.event = Object.assign(
+      { id: this.event.id },
+      this.registerForm.value
+    );
+    this.uploadImagem();
+    this.dialogRef.close(this.event);
   }
 }

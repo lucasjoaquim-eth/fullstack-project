@@ -1,14 +1,6 @@
-import {
-  Component,
-  OnInit,
-  Inject,
-} from "@angular/core";
+import {  Component,  OnInit,  Inject,} from "@angular/core";
 import { Validators, FormGroup, FormBuilder } from "@angular/forms";
-import {
-  MatDialogRef,
-  MatDialog,
-  MAT_DIALOG_DATA
-} from "@angular/material/dialog";
+import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { EventService } from "src/app/services/event.service";
 import { ListEventComponent } from "../list-event/list-event.component";
 import { iEvent } from "../../../models/event";
@@ -44,8 +36,6 @@ export class RegisterEventComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder,
-    private dialog: MatDialog,
-    private dialogRef: MatDialogRef<RegisterEventComponent>,
     private eventService: EventService,
     private snackbarService: SnackbarService,
   ) {}
@@ -54,8 +44,7 @@ export class RegisterEventComponent implements OnInit {
     this.titulo = this.route.snapshot.data["titulo"];
     this.validation();
     if(this.data){
-       this.loadEvent(this.data.event.id);
-       this.edit = true;
+       this.loadEvent(this.data.event);
     }
   }
   validation() {
@@ -72,21 +61,11 @@ export class RegisterEventComponent implements OnInit {
       email: ["", [Validators.required, Validators.email]]
     });
   }
-  loadEvent(idEvent: number) {
-    this.eventService.getEventById(idEvent).subscribe(_event => {
-      if (_event && _event.id) {
-        this.event = _event;
-        this.registerForm.patchValue(this.event);
-        this.edit = true;
-      } else {
-        this.snackbarService.message("Não existe esse evento");
-      }
-    }),
-      error => {
-        this.snackbarService.message(
-          `Erro: ${error}, ao consultar o evento ${this.event.id}`
-        );
-      };
+
+  loadEvent(event: iEvent) {
+    this.edit = true;
+    this.event = Object.assign({},event);
+    this.registerForm.patchValue(this.event);
   }
 
   onFileChange(event){
@@ -153,9 +132,5 @@ export class RegisterEventComponent implements OnInit {
 
   goToEventList(): void {
     this.router.navigate(["/event"]);
-  }
-
-  closeDialog() {
-    this.dialog.closeAll();
   }
 }

@@ -68,7 +68,7 @@ export class ListEventComponent implements OnInit {
   }
 
   editDialog(event: iEvent): void {
-    this.versaoEventDialogRef = this.dialog.open(RegisterEventComponent, {
+     this.dialog.open(RegisterEventComponent, {
       data: {
           event: event
       }

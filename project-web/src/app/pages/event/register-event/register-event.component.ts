@@ -54,7 +54,8 @@ export class RegisterEventComponent implements OnInit {
     this.titulo = this.route.snapshot.data["titulo"];
     this.validation();
     if(this.data){
-       this.carregar(this.data.event.id);
+       this.loadEvent(this.data.event.id);
+       this.edit = true;
     }
   }
   validation() {
@@ -71,7 +72,7 @@ export class RegisterEventComponent implements OnInit {
       email: ["", [Validators.required, Validators.email]]
     });
   }
-  carregar(idEvent: number) {
+  loadEvent(idEvent: number) {
     this.eventService.getEventById(idEvent).subscribe(_event => {
       if (_event && _event.id) {
         this.event = _event;
@@ -102,33 +103,7 @@ export class RegisterEventComponent implements OnInit {
     this.eventService.postFile(this.file, fileName).subscribe();
   }
 
-  add(edit?: boolean): void {
-    if (edit) {
-      this.event = Object.assign(
-        { id: this.event.id },
-        this.registerForm.getRawValue()
-      );
-      this.uploadImagem();
-      this.eventService.putEvent(this.event).subscribe(
-        event => {
-          if (event && event.id) {
-            this.snackbarService.message(
-              `Evento ${event.theme} atualizado com sucesso.`
-            );
-            this.dialogRef.close(event);
-          } else {
-            this.snackbarService.message(
-              `Não foi possível atualizar o evento ${event.theme}. ID: ${event.id}`
-            );
-          }
-        },
-        error => {
-          this.snackbarService.message(
-            `Erro: ${error}, ao atualizar o evento ${this.event.theme}`
-          );
-        }
-      );
-    } else {
+  add(): void {
       this.event = Object.assign(
         { event: this.event },
         this.registerForm.getRawValue()
@@ -148,7 +123,32 @@ export class RegisterEventComponent implements OnInit {
           this.snackbarService.message(`Erro ao salvar: ${error}`);
         }
       );
-    }
+  }
+
+  put(){
+    this.event = Object.assign(
+      { id: this.event.id },
+      this.registerForm.getRawValue()
+    );
+    this.uploadImagem();
+    this.eventService.putEvent(this.event).subscribe(
+      event => {
+        if (event && event.id) {
+          this.snackbarService.message(
+            `Evento ${event.theme} atualizado com sucesso.`
+          );
+        } else {
+          this.snackbarService.message(
+            `Não foi possível atualizar o evento ${event.theme}. ID: ${event.id}`
+          );
+        }
+      },
+      error => {
+        this.snackbarService.message(
+          `Erro: ${error}, ao atualizar o evento ${this.event.theme}`
+        );
+      }
+    );
   }
 
   goToEventList(): void {

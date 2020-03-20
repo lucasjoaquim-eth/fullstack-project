@@ -21,6 +21,8 @@ export class ListEventComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   versaoEventDialogRef: MatDialogRef<RegisterEventComponent>;
+  events: iEvent[] = [];
+  registerEvent: RegisterEventComponent;
 
   displayedColumns: string[] = [
     "imagemUrl",
@@ -34,9 +36,6 @@ export class ListEventComponent implements OnInit {
     "email",
     "options"
   ];
-
-  events: iEvent[] = [];
-  registerEvent: RegisterEventComponent;
 
   constructor(
     private dialog: MatDialog,
@@ -71,18 +70,7 @@ export class ListEventComponent implements OnInit {
   editDialog(event: iEvent): void {
     this.versaoEventDialogRef = this.dialog.open(RegisterEventComponent, {
       data: {
-        event: event
-      }
-    });
-    this.versaoEventDialogRef.afterClosed().subscribe(versaoEventRef => {
-      if (versaoEventRef) {
-        event.theme = versaoEventRef.theme;
-        console.log(versaoEventRef);
-      } else {
-        this.snackbarService.message(
-          "Não foi possível atualizar a versão e listar"
-        );
-        console.log(versaoEventRef);
+          event: event
       }
     });
   }

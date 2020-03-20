@@ -90,7 +90,7 @@
     <mat-dialog-actions align="center">
         <div class="button-row">
             <ng-container *ngIf="edit; else elseTemplate">
-                <button mat-button [disabled]="registerForm.invalid" (click)="add(true)" mat-dialog-close color="primary">Salvar</button>
+                <button mat-button [disabled]="registerForm.invalid" (click)="put()" mat-dialog-close color="primary">Salvar</button>
             </ng-container>
             <ng-template #elseTemplate>
                 <button mat-button [disabled]="registerForm.invalid" (click)="add()" (click)="goToEventList()" mat-dialog-close color="primary">Salvar</button>

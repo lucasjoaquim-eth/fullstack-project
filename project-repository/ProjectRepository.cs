@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using project.repository.data;
+using project.repository;
 
 namespace project.repository
 {

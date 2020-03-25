@@ -110,17 +110,17 @@ namespace project.api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(EventDto model)
+        public async Task<IActionResult> Post(EventDto eventDto)
         {
             try
             {
-                var _event = _mapper.Map<Event>(model);
+                var _event = _mapper.Map<Event>(eventDto);
 
                 _projectRepository.Add(_event);
 
                 if (await _projectRepository.SaveChangesAsync())
                 {
-                    return Created($"/api/event/{model.Id}", _mapper.Map<EventDto>(_event));
+                    return Created($"/api/event/{eventDto.Id}", _mapper.Map<EventDto>(_event));
                 }
             }
             catch (System.Exception ex)
@@ -131,7 +131,7 @@ namespace project.api.Controllers
         }
 
         [HttpPut("{EventId}")]
-        public async Task<IActionResult> Put(int EventId, EventDto model)
+        public async Task<IActionResult> Put(int EventId, EventDto eventDto)
         {
             try
             {
@@ -142,13 +142,13 @@ namespace project.api.Controllers
                     return NotFound();
                 }
 
-                _mapper.Map(model, _event);
+                _mapper.Map(eventDto, _event);
 
                 _projectRepository.Update(_event);
 
                 if (await _projectRepository.SaveChangesAsync())
                 {
-                    return Created($"/api/event/{model.Id}", _mapper.Map<EventDto>(_event));
+                    return Created($"/api/event/{eventDto.Id}", _mapper.Map<EventDto>(_event));
                 }
             }
             catch (System.Exception ex)

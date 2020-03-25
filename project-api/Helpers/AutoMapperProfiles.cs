@@ -2,6 +2,7 @@ using System.Linq;
 using AutoMapper;
 using project.api.Dtos;
 using project.domain;
+using project.domain.Identity;
 
 namespace project.api.Helpers
 {
@@ -25,6 +26,9 @@ namespace project.api.Helpers
             CreateMap<Lot, LotDto>().ReverseMap();
 
             CreateMap<SocialNetwork, SocialNetworkDto>().ReverseMap();
+
+            CreateMap<User, UserDto>().ReverseMap();
+
         }
     }
 }

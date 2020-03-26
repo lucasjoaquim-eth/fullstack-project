@@ -28,6 +28,7 @@ namespace project.api.Helpers
             CreateMap<SocialNetwork, SocialNetworkDto>().ReverseMap();
 
             CreateMap<User, UserDto>().ReverseMap();
+            CreateMap<User, UserLoginDto>().ReverseMap();
 
         }
     }

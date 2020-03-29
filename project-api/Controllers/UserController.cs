@@ -15,7 +15,7 @@ using project.domain.Identity;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 
-namespace project_api.Controllers
+namespace project.api.Controllers
 {
 
     [Route("api/{controller}")]
@@ -41,12 +41,11 @@ namespace project_api.Controllers
         {
             try
             {
-                return Ok(new User());
+                return Ok(new UserDto());
             }
             catch (System.Exception ex)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Banco de dados Falhou {ex.Message}");
-
             }
         }
 
@@ -79,12 +78,13 @@ namespace project_api.Controllers
         {
             try
             {
-                var user = await _userManager.FindByNameAsync(userLogin.Name);
+                var user = await _userManager.FindByNameAsync(userLogin.UserName);
                 var result = await _signInManager.CheckPasswordSignInAsync(user, userLogin.Password, false);
+
                 if (result.Succeeded)
                 {
                     var appUser = await _userManager.Users
-                        .FirstOrDefaultAsync(u => u.NormalizedUserName == userLogin.Name.ToUpper());
+                        .FirstOrDefaultAsync(u => u.NormalizedUserName == userLogin.UserName.ToUpper());
                     var userToReturn = _mapper.Map<UserLoginDto>(appUser);
                     return Ok(new
                     {
@@ -92,6 +92,7 @@ namespace project_api.Controllers
                         user = userToReturn
                     });
                 }
+
                 return Unauthorized();
             }
             catch (System.Exception ex)
@@ -123,7 +124,7 @@ namespace project_api.Controllers
                 );
 
                 var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
-                
+
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(claims),
@@ -132,11 +133,10 @@ namespace project_api.Controllers
                 };
 
                 var tokenHandler = new JwtSecurityTokenHandler();
-
                 var token = tokenHandler.CreateToken(tokenDescriptor);
 
                 return tokenHandler.WriteToken(token);
-            }            
+            }
             catch (System.Exception ex)
             {
                 return "";

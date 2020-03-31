@@ -5,12 +5,29 @@ import { RegisterEventComponent } from "./pages/event/register-event/register-ev
 import { HomeComponent } from "./pages/home/home.component";
 import { ListSpeakerComponent } from "./pages/speaker/list-speaker/list-speaker.component";
 import { RegisterSpeakerComponent } from "./pages/speaker/register-speaker/register-speaker.component";
+import { UserComponent } from './pages/user/user.component';
+import { LoginUserComponent } from './pages/user/login-user/login-user.component';
+import { RegisterUserComponent } from './pages/user/register-user/register-user.component';
 
 const routes: Routes = [
   {
     path: "home",
     component: HomeComponent,
     data: { titulo: "Home" }
+  },
+  {
+    path: "user",
+    component: UserComponent,
+    children: [
+      {
+        path: "login",
+        component: LoginUserComponent
+      },
+      {
+        path: "register",
+        component: RegisterUserComponent
+      }
+    ]
   },
   {
     path: "event",
@@ -21,16 +38,6 @@ const routes: Routes = [
     path: "event/register",
     component: RegisterEventComponent,
     data: { titulo: "Register" }
-  },
-  {
-    path: "event/register/:id/edit",
-    component: RegisterEventComponent,
-    data: { titulo: "Edit" }
-  },
-  {
-    path: "event/register/:id/delete",
-    component: RegisterEventComponent,
-    data: { titulo: "Delete" }
   },
   {
     path: "speaker",

@@ -22,13 +22,14 @@ export class RegisterEventComponent implements OnInit {
   file: File;
   fileNameToUpdate: string;
 
-  idEvent: number;
+  // Verificar -------------
   imagemUrl: string;
   place: string;
   theme: string;
   email: string;
   phone: string;
   date: Date;
+  //-------------------------
   amountPeople: Number;
   registerForm: FormGroup;
 
@@ -44,13 +45,13 @@ export class RegisterEventComponent implements OnInit {
 
   ngOnInit() {
     this.titulo = this.route.snapshot.data["titulo"];
-    this.validation();
+    this.validationRegisterForm();
     if (this.data) {
       this.loadEvent(this.data.event);
       this.edit = true;
     }
   }
-  validation() {
+  validationRegisterForm() {
     this.registerForm = this.formBuilder.group({
       imagemUrl: ['',[Validators.required]],
       date: [Validators.required],

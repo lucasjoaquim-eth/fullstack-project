@@ -1,0 +1,23 @@
+#logo img {
+    max-width: 360px;
+}
+
+#logo {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+#login {
+    padding-right: 16px;
+    padding-left: 16px;
+}
+
+.card-login {
+    width: 725px;
+    height: 350px;
+    padding: 10px;
+}
+
+#btn-login {
+    margin-bottom: 10px;
+}

@@ -9,11 +9,12 @@ import { LoginUserComponent } from "./pages/user/login-user/login-user.component
 import { RegisterUserComponent } from "./pages/user/register-user/register-user.component";
 import { AuthGuard } from "./auth/auth.guard";
 import { NavComponent } from "./pages/nav/nav.component";
+import { EditEventComponent } from './pages/event/edit-event/edit-event.component';
 
 const routes: Routes = [
   {
     path: "",
-    redirectTo: "user/login",
+    redirectTo: "app/home",
     pathMatch: "full",
   },
   {
@@ -43,8 +44,19 @@ const routes: Routes = [
       },
       {
         path: "event",
-        component: ListEventComponent,
         data: { titulo: "Event" },
+        children: [
+          {
+            path: "list",
+            component: ListEventComponent,
+            data: { titulo: "List" },
+          },
+          {
+            path: ":id/edit",
+            component: EditEventComponent,
+            data: { titulo: "Edit" },
+          },
+        ],
       },
       {
         path: "speaker",
@@ -60,7 +72,7 @@ const routes: Routes = [
   },
   {
     path: "**",
-    redirectTo: "user/login",
+    redirectTo: "app/home",
     pathMatch: "full",
   },
 ];

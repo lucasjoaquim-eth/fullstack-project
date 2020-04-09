@@ -47,6 +47,7 @@ import { TitleComponent } from "./pages/title/title.component";
 import { UserComponent } from "./pages/user/user.component";
 import { LoginUserComponent } from "./pages/user/login-user/login-user.component";
 import { RegisterUserComponent } from "./pages/user/register-user/register-user.component";
+import { EditEventComponent } from './pages/event/edit-event/edit-event.component';
 
 registerLocaleData(localePt);
 @NgModule({
@@ -65,6 +66,7 @@ registerLocaleData(localePt);
     UserComponent,
     LoginUserComponent,
     RegisterUserComponent,
+    EditEventComponent,
   ],
   exports: [],
   imports: [

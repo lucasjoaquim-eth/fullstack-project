@@ -4,7 +4,7 @@
     </button>
     <span class="fill-space"></span>
 
-    <button *ngIf="loggedIn()" mat-button routerLink="/app/event/">Eventos</button>
+    <button *ngIf="loggedIn()" mat-button routerLink="/app/event/list">Eventos</button>
 
     <button *ngIf="loggedIn()" mat-button [matMenuTriggerFor]="menuSpeaker">Palestrantes</button>
     <mat-menu #menuSpeaker="matMenu">

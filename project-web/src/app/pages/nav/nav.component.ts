@@ -30,13 +30,13 @@ export class NavComponent implements OnInit {
   }
 
   login() {
-    this.router.navigate(["/nav/user/login"]);
+    this.router.navigate(["/user/login"]);
     this.snackbarService.message("Preencha seu usuário e senha");
   }
 
   logout() {
     this.authService.logout();
     this.snackbarService.message("Sessão encerrada.");
-    this.router.navigate(["/nav/user/login"]);
+    this.router.navigate(["/user/login"]);
   }
 }

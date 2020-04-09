@@ -1,7 +1,7 @@
 import { AppRoutingModule } from "./app-routing.module";
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { CommonModule } from "@angular/common";
 import { MatDividerModule } from "@angular/material/divider";
@@ -13,10 +13,7 @@ import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatSortModule } from "@angular/material/sort";
 import { MatTableModule } from "@angular/material/table";
 import { MatInputModule } from "@angular/material/input";
-import {
-  MatDialogModule,
-  MAT_DIALOG_DEFAULT_OPTIONS
-} from "@angular/material/dialog";
+import { MatDialogModule } from "@angular/material/dialog";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatIconModule } from "@angular/material/icon";
 import { MatTooltipModule } from "@angular/material/tooltip";
@@ -36,6 +33,7 @@ import { registerLocaleData } from "@angular/common";
 import localePt from "@angular/common/locales/pt";
 
 import { EventService } from "./services/event.service";
+import { AuthInterceptor } from "./auth/auth.interceptor";
 
 import { AppComponent } from "./app.component";
 import { NavComponent } from "./pages/nav/nav.component";
@@ -46,9 +44,9 @@ import { ListEventComponent } from "./pages/event/list-event/list-event.componen
 import { RegisterSpeakerComponent } from "./pages/speaker/register-speaker/register-speaker.component";
 import { ListSpeakerComponent } from "./pages/speaker/list-speaker/list-speaker.component";
 import { TitleComponent } from "./pages/title/title.component";
-import { UserComponent } from './pages/user/user.component';
-import { LoginUserComponent } from './pages/user/login-user/login-user.component';
-import { RegisterUserComponent } from './pages/user/register-user/register-user.component';
+import { UserComponent } from "./pages/user/user.component";
+import { LoginUserComponent } from "./pages/user/login-user/login-user.component";
+import { RegisterUserComponent } from "./pages/user/register-user/register-user.component";
 
 registerLocaleData(localePt);
 @NgModule({
@@ -66,7 +64,7 @@ registerLocaleData(localePt);
     TitleComponent,
     UserComponent,
     LoginUserComponent,
-    RegisterUserComponent
+    RegisterUserComponent,
   ],
   exports: [],
   imports: [
@@ -96,11 +94,15 @@ registerLocaleData(localePt);
     MatCardModule,
     MatMenuModule,
     MatButtonModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
   ],
-  providers: [EventService, { provide: LOCALE_ID, useValue: "pt-BR" }],
+  providers: [
+    EventService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: LOCALE_ID, useValue: "pt-BR" },
+  ],
   entryComponents: [RegisterEventComponent, ConfirmationDialogComponent],
   bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {}

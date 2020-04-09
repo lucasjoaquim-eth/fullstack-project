@@ -6,17 +6,18 @@ import { HttpHeaders } from "@angular/common/http";
 import { iEvent } from "../models/event";
 
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
+
 export class EventService {
   readonly endpoint = environment.urlEvent + "event";
   readonly httpOptions = {
     headers: new HttpHeaders({
-      "Content-Type": "application/json"
-    })
+      "Content-Type": "application/json",
+    }),
   };
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {};
 
   getAllEvent(): Observable<iEvent[]> {
     return this.http.get<iEvent[]>(`${this.endpoint}`);
@@ -31,7 +32,7 @@ export class EventService {
   }
 
   postEvent(event: iEvent): Observable<iEvent> {
-    return this.http.post<iEvent>(this.endpoint, event, this.httpOptions);
+    return this.http.post<iEvent>(this.endpoint, event);
   }
 
   putEvent(event: iEvent): Observable<iEvent> {
@@ -46,10 +47,13 @@ export class EventService {
     return this.http.delete<boolean>(`${this.endpoint}/${id}`);
   }
 
-  postFile(file: File, fileName: string){
-    const fileToUpload = <File> file[0];
+  postFile(file: File, fileName: string) {
+    const fileToUpload = <File>file[0];
     const formData = new FormData();
-    formData.append('file', fileToUpload, fileName);
-    return this.http.post(`${this.endpoint}/upload`, formData)
+    formData.append("file", fileToUpload, fileName);
+    console.log("fileToUpload: ", fileToUpload);
+    console.log("fileName: ", fileName);
+    console.log("formData: ", formData);
+    return this.http.post(`${this.endpoint}/upload`, formData);
   }
 }

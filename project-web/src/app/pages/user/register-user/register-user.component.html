@@ -1,16 +1,16 @@
-<div fxLayout="row" fxLayoutAlign="center center" fxFill class="mat-typography">
+<div fxLayoutAlign="center center" fxFill class="mat-typography">
     <form [formGroup]="registerForm">
         <mat-card class="mat-elevation-z6 card-register" fxFlex>
             <div fxLayout="row" fxLayoutAlign="center start" fxFill>
-                <button mat-icon-button color="primary" routerLink="/user/login">
-                  <span class="material-icons">
-                    arrow_back
-                  </span>
-                </button>
-
                 <div id="logo" fxLayoutAlign="center center" fxFlex fxFill>
+                    <button mat-mini-fab id="btn-back" color="accent" matTooltip="Voltar" routerLink="/user/login">
+                      <span class="material-icons">
+                        arrow_back
+                      </span>
+                    </button>
                     <img src="../../../../assets/images/logo.png" />
                 </div>
+
                 <form [formGroup]="registerForm">
                     <div id="register" fxLayout="row wrap" fxLayoutAlign="space-between center">
                         <h2 class="color-primary title">Crie sua Conta</h2>
@@ -21,14 +21,16 @@
                             <mat-error *ngIf="registerForm.get('fullName').hasError('required')">
                                 O nome completo é <strong>obrigatório</strong>
                             </mat-error>
+                            <mat-icon color="primary" matSuffix>account_box</mat-icon>
                         </mat-form-field>
 
                         <mat-form-field fxFlex="100">
-                            <mat-label>Nome de usuario</mat-label>
+                            <mat-label>Nome de usuário</mat-label>
                             <input matInput formControlName="userName">
                             <mat-error *ngIf="registerForm.get('userName').hasError('required')">
                                 O nome de usuário é <strong>obrigatório</strong>
                             </mat-error>
+                            <mat-icon color="primary" matSuffix>perm_identity</mat-icon>
                         </mat-form-field>
 
                         <mat-form-field fxFlex="100">
@@ -43,6 +45,7 @@
                             <mat-error *ngIf="registerForm.get('email').hasError('required')">
                                 Email é <strong>obrigatório</strong>
                             </mat-error>
+                            <mat-icon color="primary" matSuffix>contact_mail</mat-icon>
                         </mat-form-field>
 
                         <mat-form-field fxFlex="80" formGroupName="passwords">
@@ -52,8 +55,9 @@
                                 A senha é <strong>obrigatória</strong>
                             </mat-error>
                             <mat-error *ngIf="registerForm.get('passwords.password').hasError('minlength')">
-                                A senha deve possui ao menos 4 caracters
+                                A senha deve possuir no mínimo 4 caracters
                             </mat-error>
+                            <mat-icon color="primary" matSuffix>vpn_key</mat-icon>
                         </mat-form-field>
 
                         <mat-form-field fxFlex="80" formGroupName="passwords">
@@ -65,6 +69,7 @@
                             <mat-error *ngIf="registerForm.get('passwords.verifyPassword').hasError('passwordsDoNotMatch')">
                                 Essas senhas não coincidem.
                             </mat-error>
+                            <mat-icon color="primary" matSuffix>vpn_key</mat-icon>
                         </mat-form-field>
 
                         <button mat-icon-button (click)="checkHide()" color="primary">
@@ -73,7 +78,7 @@
                           </span>
                         </button>
 
-                        <button mat-raised-button class="btn-register" (click)="registerUser()" color="primary" fxFill>Cadastrar</button>
+                        <button mat-raised-button class="btn-register" [disabled]="registerForm.invalid" (click)="registerUser()" color="primary" fxFill>Cadastrar</button>
                     </div>
                 </form>
             </div>

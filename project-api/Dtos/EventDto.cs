@@ -15,6 +15,8 @@ namespace project.api.Dtos
         [Required(ErrorMessage = "O campo {0} deve ser preenchido")]
         public string Date { get; set; }
 
+        [StringLength(50, MinimumLength = 3,
+        ErrorMessage = "O campo {0} deve possuir no minimo 3 e no máximo 50 caracters")]
         [Required(ErrorMessage = "O campo {0} deve ser preenchido")]
         public string Theme { get; set; }
 

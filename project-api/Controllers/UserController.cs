@@ -49,7 +49,7 @@ namespace project.api.Controllers
             }
         }
 
-        [HttpPost("Post")]
+        [HttpPost("Register")]
         [AllowAnonymous]
         public async Task<IActionResult> Post(UserDto userDto)
         {

@@ -5,6 +5,7 @@
 #logo {
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
+    background-color: rgb(59, 2, 115);
 }
 
 #login {
@@ -19,5 +20,5 @@
 }
 
 #btn-login {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }

@@ -1,6 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { MatSnackBar } from "@angular/material/snack-bar";
+import { iUser } from "src/app/models/user";
+import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
+import { SnackbarService } from 'src/app/services/snackbar.service';
 
 @Component({
   selector: "app-register-user",
@@ -11,12 +14,16 @@ export class RegisterUserComponent implements OnInit {
   registerForm: FormGroup;
   hide = false;
 
+  user: iUser;
+
   fullName: string;
   email: string;
 
   constructor(
     private formBuilder: FormBuilder,
-    private snackBar: MatSnackBar
+    private snackbarService: SnackbarService,
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -59,27 +66,29 @@ export class RegisterUserComponent implements OnInit {
   }
 
   registerUser() {
-    console.log("Cadastrar usuário");
+    if (this.registerForm.valid) {
+      this.user = Object.assign(this.registerForm.value, {
+        password: this.registerForm.get("passwords.password").value
+      });
+    }
+    this.authService.register(this.user).subscribe(
+      user => {
+        this.router.navigate(['/user/login']);
+        this.snackbarService.message("Cadastrado realizado");
+      },
+      error => {
+        const erro = error.errors;
+        erro.forEach(element => {
+          switch(element.code){
+            case 'DuplicateUserName':
+              this.snackbarService.message("Cadastrado Duplicado");
+              break;
+            default:
+              this.snackbarService.message(`Erro no cadastro. Code: ${element.code}`);
+              break;
+          }
+        });
+      }
+    );
   }
 }
-
-// import { ErrorStateMatcher } from "@angular/material/core";
-
-/** Error when the parent is invalid */
-// class CrossFieldErrorMatcher implements ErrorStateMatcher {
-//   isErrorState(
-//     control: FormControl | null,
-//     form: FormGroupDirective | NgForm | null
-//   ): boolean {
-//     return control.dirty && form.invalid;
-//   }
-// }
-
-// errorMatcher = new CrossFieldErrorMatcher();
-
-// passwordValidator(form: FormGroup) {
-//   console.log("passwordValidator");
-//   const condition =
-//     form.get("password").value !== form.get("verifyPassword").value;
-//   return condition ? { passwordsDoNotMatch: true } : null;
-// }

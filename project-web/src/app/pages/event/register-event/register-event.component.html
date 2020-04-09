@@ -1,22 +1,42 @@
-<app-title [title]="'Cadastrar Eventos'"></app-title>
+<ng-container *ngIf="edit; else templeteRegisterEvent">
+    <app-title [title]="'Editar Evento'"></app-title>
+</ng-container>
+<ng-template #templeteRegisterEvent>
+    <app-title [title]="'Cadastrar Evento'"></app-title>
+</ng-template>
 
 <mat-form [formGroup]="registerForm">
     <div fxLayout="row" fxLayoutAlign="space-between stretch">
         <mat-card fxFlex class="mat-elevation-z3">
             <mat-card-content>
                 <div fxLayout="row wrap" fxLayoutAlign="space-between center">
-                    <mat-form-field fxFlex="45">
+                    <mat-form-field fxFlex="50">
                         <input matInput placeholder="Tema" formControlName="theme">
-                        <button mat-button *ngIf="theme" matSuffix mat-icon-button aria-label="Clear" (click)="theme=''">
-                        <mat-icon>close</mat-icon>
-                       </button>
                         <mat-error *ngIf="registerForm.get('theme').hasError('required')">
                             Tema é <strong>obrigatório</strong>
                         </mat-error>
+                        <mat-error *ngIf="registerForm.get('theme').hasError('minlength')">
+                            O tema deve possuir no mínimo 3 caracters
+                        </mat-error>
+                        <mat-error *ngIf="registerForm.get('theme').hasError('maxlength')">
+                            O tema deve possuir no máximo 50 caracters
+                        </mat-error>
+                        <button mat-button *ngIf="registerForm.get('theme').value != ''" matSuffix mat-icon-button aria-label="Clear" (click)="registerForm.get('theme').setValue('')">
+                          <mat-icon>close</mat-icon>
+                        </button>
                     </mat-form-field>
 
-                    <mat-form-field class="example-margin" fxFlex="20">
+                    <mat-form-field class="example-margin" fxFlex="15">
                         <input type="number" matInput placeholder="Pessoas" formControlName="amountPeople">
+                        <mat-error *ngIf="registerForm.get('amountPeople').hasError('required')">
+                            A quantidade de Pessoas é <strong>obrigatória</strong>
+                        </mat-error>
+                        <mat-error *ngIf="registerForm.get('amountPeople').hasError('min')">
+                            Deve possuir no mínimo 2 pessoas.
+                        </mat-error>
+                        <mat-error *ngIf="registerForm.get('amountPeople').hasError('max')">
+                            Deve possuir no máximo 120000 pessoas.
+                        </mat-error>
                     </mat-form-field>
 
                     <mat-form-field fxFlex="20">
@@ -30,60 +50,55 @@
 
                     <mat-form-field fxFlex="100">
                         <input matInput type="text" placeholder="Local" formControlName="place">
-                        <button mat-button *ngIf="place" matSuffix mat-icon-button aria-label="Clear" (click)="place=''">
-                            <mat-icon>close</mat-icon>
-                        </button>
                         <mat-error *ngIf="registerForm.get('place').hasError('required')">
-                            Local é <strong>obrigatório</strong>
+                            O local é <strong>obrigatório</strong>
                         </mat-error>
+                        <mat-error *ngIf="registerForm.get('place').hasError('minlength')">
+                            O local deve possuir no mínimo 3 caracters
+                        </mat-error>
+                        <mat-error *ngIf="registerForm.get('place').hasError('maxlength')">
+                            O local deve possuir no máximo 100 caracters
+                        </mat-error>
+                        <button mat-button *ngIf="registerForm.get('place').value != ''" matSuffix mat-icon-button aria-label="Clear" (click)="registerForm.get('place').setValue('')">
+                          <mat-icon>close</mat-icon>
+                        </button>
                     </mat-form-field>
-                    <!-- <mat-form-field fxFlex="45">
-                        <input matInput type="text" placeholder="Imagem" formControlName="imagemUrl">
-                        <button mat-button *ngIf="imagemUrl" matSuffix mat-icon-button aria-label="Clear" (click)="imagemUrl=''">
-                   <mat-icon>close</mat-icon>
-                    </button>
-                        <mat-error *ngIf="registerForm.get('imagemUrl').hasError('required')">
-                            Imagem é <strong>obrigatório</strong>
-                        </mat-error>
-                    </mat-form-field> -->
 
                     <mat-form-field fxFlex="45">
                         <input matInput placeholder="Email" formControlName="email">
-                        <button mat-button *ngIf="email" matSuffix mat-icon-button aria-label="Clear" (click)="email=''">
-                     <mat-icon>close</mat-icon>
-                      </button>
                         <mat-error *ngIf="registerForm.get('email').hasError('email') && !registerForm.get('email').hasError('required')">
                             Por favor entre com endereço de e-mail válido
                         </mat-error>
                         <mat-error *ngIf="registerForm.get('email').hasError('required')">
                             Email é <strong>obrigatório</strong>
                         </mat-error>
+                        <button mat-button *ngIf="registerForm.get('email').value != ''" matSuffix mat-icon-button aria-label="Clear" (click)="registerForm.get('email').setValue('')">
+                          <mat-icon>close</mat-icon>
+                        </button>
                     </mat-form-field>
 
-                    <mat-form-field fxFlex="45">
+                    <mat-form-field fxFlex="25">
                         <span matPrefix>+11 &nbsp;</span>
                         <input type="tel" matInput placeholder="Número de contato" formControlName="phone">
-                        <button mat-button *ngIf="phone" matSuffix mat-icon-button aria-label="Clear" (click)="phone=''">
-                    <mat-icon>close</mat-icon>
-                      </button>
-                        <mat-icon matSuffix>mode_edit</mat-icon>
+                        <mat-error *ngIf="registerForm.get('phone').hasError('required')">
+                            O número para contato é <strong>obrigatório</strong>
+                        </mat-error>
+                        <button mat-button *ngIf="registerForm.get('phone').value != ''" matSuffix mat-icon-button aria-label="Clear" (click)="registerForm.get('phone').setValue('')">
+                          <mat-icon>close</mat-icon>
+                        </button>
                     </mat-form-field>
 
-                    <div fxFlex="45">
-                        <mat-card-content>
-                            <ul>
-                                <mat-progress-bar mode="determinate"></mat-progress-bar>
-                                <span id="file-label">
-                                </span>
-                            </ul>
-                        </mat-card-content>
+                    <div fxFlex="50">
+                        <input type="file" #fileUpload id="fileUpload" name="fileUpload" (change)="onFileChange($event)" style="display:inline-block;" formControlName="imagemUrl" />
+                        <mat-error *ngIf="registerForm.get('imagemUrl').hasError('required')">
+                            Selecione uma imagem
+                        </mat-error>
                         <mat-card-actions>
                             <button mat-button color="primary" (click)="fileUpload.click()">
                               <mat-icon>file_upload</mat-icon>
                                   Upload de Imagem
                             </button>
                         </mat-card-actions>
-                        <input type="file" #fileUpload id="fileUpload" name="fileUpload" (change)="onFileChange($event)" style="display:none;" formControlName="imagemUrl" />
                     </div>
                 </div>
             </mat-card-content>
@@ -100,6 +115,4 @@
             <button mat-button color="primary" mat-dialog-close>Fechar</button>
         </div>
     </mat-dialog-actions>
-    <p>Form Value: {{registerForm.value | json}} </p>
-    <p>Form Status: {{registerForm.status | json}} </p>
 </mat-form>

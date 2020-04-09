@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild, Inject } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
-import { MatDialog, MatDialogRef } from "@angular/material/dialog";
+import { MatDialog } from "@angular/material/dialog";
 import { EventService } from "src/app/services/event.service";
 import { RegisterEventComponent } from "../register-event/register-event.component";
 import { iEvent } from "src/app/models/event";
@@ -12,7 +12,7 @@ import { SnackbarService } from "src/app/services/snackbar.service";
 @Component({
   selector: "app-list-event",
   templateUrl: "./list-event.component.html",
-  styleUrls: ["./list-event.component.css"]
+  styleUrls: ["./list-event.component.css"],
 })
 export class ListEventComponent implements OnInit {
   dataSource: MatTableDataSource<iEvent>;
@@ -23,7 +23,6 @@ export class ListEventComponent implements OnInit {
   registerEvent: RegisterEventComponent;
 
   displayedColumns: string[] = [
-    "imagemUrl",
     "id",
     "date",
     "place",
@@ -32,13 +31,14 @@ export class ListEventComponent implements OnInit {
     "lots",
     "phone",
     "email",
-    "options"
+    "imagemUrl",
+    "options",
   ];
 
   constructor(
     private dialog: MatDialog,
     private eventService: EventService,
-    private snackbarService: SnackbarService
+    private snackbarService: SnackbarService,
   ) {}
 
   ngOnInit() {
@@ -50,25 +50,28 @@ export class ListEventComponent implements OnInit {
 
   listEvents(): void {
     this.eventService.getAllEvent().subscribe(
-      events => {
+      (events) => {
         this.events = events;
         this.dataSource.data = events;
       },
-      error => {
+      (error) => {
         this.snackbarService.message("Erro ao tentar carregar eventos");
       }
     );
   }
 
   registerDialog(): void {
-    let registerDialog = this.dialog.open(RegisterEventComponent, {});
-    registerDialog.afterClosed().subscribe(event => {
+    let registerDialog = this.dialog.open(RegisterEventComponent, {
+      width: "60%",
+    });
+    registerDialog.afterClosed().subscribe((event) => {
       console.log("Event: ", event);
-
       this.eventService.postEvent(event).subscribe(
-        result => {
+        (result) => {
           if (event) {
-            this.snackbarService.message(`Evento ${event.theme} adicionado com sucesso`);
+            this.snackbarService.message(
+              `Evento ${event.theme} adicionado com sucesso`
+            );
             this.listEvents();
           } else {
             this.snackbarService.message(
@@ -76,24 +79,22 @@ export class ListEventComponent implements OnInit {
             );
           }
         },
-        error => {
-          this.snackbarService.message(`Erro ao salvar: ${error}`);
-        }
+        (error) => {}
       );
     });
   }
 
   editDialog(event: iEvent): void {
     let editDialog = this.dialog.open(RegisterEventComponent, {
+      width: "60%",
       data: {
-        event: event
-      }
+        event: event,
+      },
     });
-    editDialog.afterClosed().subscribe(event => {
+    editDialog.afterClosed().subscribe((event) => {
       console.log("Event: ", event);
-
       this.eventService.putEvent(event).subscribe(
-        result => {
+        (result) => {
           if (event && event.id) {
             this.snackbarService.message(
               `Evento ${event.theme} atualizado com sucesso.`
@@ -105,11 +106,7 @@ export class ListEventComponent implements OnInit {
             );
           }
         },
-        error => {
-          this.snackbarService.message(
-            `Erro: ${error}, ao atualizar o evento ${event.theme}`
-          );
-        }
+        (error) => {}
       );
     });
   }
@@ -118,12 +115,12 @@ export class ListEventComponent implements OnInit {
     let confirmationDialog = this.dialog.open(ConfirmationDialogComponent, {
       data: {
         title: "Deletar evento",
-        message: `Deseja deletar o evento ${event.theme}?`
-      }
+        message: `Deseja deletar o evento ${event.theme}?`,
+      },
     });
-    confirmationDialog.afterClosed().subscribe(data => {
+    confirmationDialog.afterClosed().subscribe((data) => {
       this.eventService.deleteEvent(event.id).subscribe(
-        result => {
+        (result) => {
           if (data && data.confirm && event) {
             this.snackbarService.message(
               `O evento ${event.theme} foi deletado com sucesso.`
@@ -135,7 +132,7 @@ export class ListEventComponent implements OnInit {
             );
           }
         },
-        error => {
+        (error) => {
           this.snackbarService.message(
             `Erro ${error} ao deletar ${event.theme}`
           );
@@ -143,10 +140,10 @@ export class ListEventComponent implements OnInit {
       );
     });
   }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }

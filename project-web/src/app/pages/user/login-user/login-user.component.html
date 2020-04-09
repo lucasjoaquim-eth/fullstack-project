@@ -1,7 +1,5 @@
-<mat-progress-bar id="progresso" *ngIf="loading" mode="indeterminate"></mat-progress-bar>
-
-<div fxLayout="row" fxLayoutAlign="center center" fxFill class="mat-typography">
-    <form [formGroup]="formLogin">
+<div fxFill fxLayoutAlign="center center">
+    <form [formGroup]="loginForm">
         <mat-card class="mat-elevation-z6 card-login">
             <div fxLayout="row" fxLayoutAlign="center center" fxFill>
                 <div id="logo" class="background-primary" fxLayoutAlign="center center" fxFlex fxFill>
@@ -10,16 +8,18 @@
                 <div id="login" fxLayout="column" fxLayoutAlign="center start" fxFlex="40">
                     <h2 class="color-primary">Projeto WebAPI</h2>
                     <mat-form-field appearance="legacy" fxFill>
-                        <mat-label>login</mat-label>
-                        <input matInput placeholder="" id="user" name="login" formControlName="login">
-                        <mat-icon matSuffix class="color-primary">perm_identity</mat-icon>
+                        <input matInput placeholder="login" formControlName="userName">
+                        <mat-icon color="primary" matSuffix>perm_identity</mat-icon>
                     </mat-form-field>
                     <mat-form-field appearance="legacy" fxFill>
-                        <mat-label>senha</mat-label>
-                        <input matInput type="password" placeholder="" id="password" name="password" formControlName="password">
-                        <mat-icon matSuffix class="color-primary">lock</mat-icon>
+                        <input matInput type="password" placeholder="senha" formControlName="password" [type]="hide?'text':'password'">
+                        <button mat-icon-button (click)="checkHide()" color="primary" matSuffix>
+                              <span class="material-icons" matSuffix>
+                                {{hide?'visibility':'visibility_off'}}
+                              </span>
+                            </button>
                     </mat-form-field>
-                    <button id="btn-login" fxFill mat-raised-button color="primary" [disabled]="!formLogin.valid" (click)="login()">Entrar</button>
+                    <button id="btn-login" fxFill mat-raised-button color="primary" [disabled]="!loginForm.valid" (click)="login()">Entrar</button>
                     <p>Não possui login? Cadastre-se abaixo</p>
                     <button routerLink="/user/register" fxFill color="primary" mat-button>Quero me cadastrar</button>
                 </div>

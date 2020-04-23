@@ -13,7 +13,7 @@
                     </mat-form-field>
                     <mat-form-field appearance="legacy" fxFill>
                         <input matInput type="password" placeholder="senha" formControlName="password" [type]="hide?'text':'password'">
-                        <button mat-icon-button (click)="checkHide()" color="primary" matSuffix>
+                        <button mat-icon-button *ngIf="loginForm.get('password').value != ''" (click)="checkHide()" color="primary" matSuffix>
                               <span class="material-icons" matSuffix>
                                 {{hide?'visibility':'visibility_off'}}
                               </span>

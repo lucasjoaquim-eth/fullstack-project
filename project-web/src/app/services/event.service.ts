@@ -8,7 +8,6 @@ import { iEvent } from "../models/event";
 @Injectable({
   providedIn: "root",
 })
-
 export class EventService {
   readonly endpoint = environment.urlEvent + "event";
   readonly httpOptions = {
@@ -17,7 +16,7 @@ export class EventService {
     }),
   };
 
-  constructor(private http: HttpClient) {};
+  constructor(private http: HttpClient) {}
 
   getAllEvent(): Observable<iEvent[]> {
     return this.http.get<iEvent[]>(`${this.endpoint}`);
@@ -51,9 +50,6 @@ export class EventService {
     const fileToUpload = <File>file[0];
     const formData = new FormData();
     formData.append("file", fileToUpload, fileName);
-    console.log("fileToUpload: ", fileToUpload);
-    console.log("fileName: ", fileName);
-    console.log("formData: ", formData);
     return this.http.post(`${this.endpoint}/upload`, formData);
   }
 }

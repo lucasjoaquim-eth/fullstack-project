@@ -8,6 +8,7 @@ import { RegisterEventComponent } from "../register-event/register-event.compone
 import { iEvent } from "src/app/models/event";
 import { ConfirmationDialogComponent } from "src/app/components/confirmation-dialog/confirmation-dialog.component";
 import { SnackbarService } from "src/app/services/snackbar.service";
+import { Router } from '@angular/router';
 
 @Component({
   selector: "app-list-event",
@@ -39,6 +40,7 @@ export class ListEventComponent implements OnInit {
     private dialog: MatDialog,
     private eventService: EventService,
     private snackbarService: SnackbarService,
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -82,6 +84,10 @@ export class ListEventComponent implements OnInit {
         (error) => {}
       );
     });
+  }
+
+  edit(event: iEvent): void{
+    this.router.navigate([`/app/event/${event.id}/edit`]);
   }
 
   editDialog(event: iEvent): void {

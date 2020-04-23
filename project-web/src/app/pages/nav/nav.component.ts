@@ -18,10 +18,10 @@ export class NavComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.userLogged();
+    this.userloggedIn();
   }
 
-  userLogged(){
+  userloggedIn(){
     this.name = this.authService.userloggedIn();
   }
 

@@ -142,8 +142,29 @@ namespace project.api.Controllers
                     return NotFound();
                 }
 
-                _mapper.Map(eventDto, _event);
+                var idLots = new List<int>();
+                var idSocialNetworks = new List<int>();
 
+                eventDto.Lots.ForEach(item => idLots.Add(item.Id));
+                eventDto.SocialNetworks.ForEach(item => idSocialNetworks.Add(item.Id));
+
+                var lots = _event.Lots
+                        .Where(lot => !idLots.Contains(lot.Id))
+                        .ToArray();
+                var socialNetworks = _event.SocialNetworks
+                        .Where(socialNetwork => !idSocialNetworks.Contains(socialNetwork.Id))
+                        .ToArray();
+
+                if (lots.Length > 0)
+                {
+                    _projectRepository.DeleteRange(lots);
+                }
+                if (socialNetworks.Length > 0)
+                {
+                    _projectRepository.DeleteRange(socialNetworks);
+                }
+
+                _mapper.Map(eventDto, _event);
                 _projectRepository.Update(_event);
 
                 if (await _projectRepository.SaveChangesAsync())

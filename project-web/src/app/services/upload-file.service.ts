@@ -1,17 +1,41 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpEvent, HttpErrorResponse, HttpEventType } from  '@angular/common/http';  
-import { map } from  'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UploadFileService {
-  SERVER_URL: string = "https://file.io/";
-  constructor(private httpClient: HttpClient) { }
-  public upload(formData) {
-    return this.httpClient.post<any>(this.SERVER_URL, formData, {  
-        reportProgress: true,  
-        observe: 'events'  
-    });  
-  }
+  previewUrl: any = "../../../../assets/images/upload.png";
+  fileData: File = null;
+  uploadedFilePath: string = null;
+
+  constructor() { }
+
+  // fileProgress(fileInput: any) {
+  //   this.fileData = <File>fileInput.target.files[0];
+  //   return this.preview();
+  // }
+
+  // preview() {
+  //   var mimeType = this.fileData.type;
+  //   if (mimeType.match(/image\/*/) == null) {
+  //     return;
+  //   }
+  //   var reader = new FileReader();
+  //   reader.readAsDataURL(this.fileData);
+  //   reader.onload = (_event) => {
+  //     return this.previewUrl = reader.result;
+  //   };
+  // }
+
+  // uploadImagem() {
+  //   if (this.edit) {
+  //     const fileName = this.file[0].name;
+  //     this.event.imagemUrl = fileName;
+  //     this.eventService.postFile(this.file, this.event.imagemUrl).subscribe();
+  //   } else {
+  //     const fileName = this.file[0].name;
+  //     this.event.imagemUrl = fileName;
+  //     this.eventService.postFile(this.file, this.event.imagemUrl).subscribe();
+  //   }
+  // }
 }

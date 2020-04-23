@@ -79,13 +79,17 @@
               </button>
                 <mat-menu #menu="matMenu">
                     <button mat-menu-item (click)="editDialog(row)">
-                     <mat-icon>edit</mat-icon>
-                     <span>Editar</span>
-                  </button>
+                      <mat-icon color="primary">details</mat-icon>
+                      <span>Edição Simples</span>
+                    </button>
+                    <button mat-menu-item (click)="edit(row)">
+                      <mat-icon color="primary">edit</mat-icon>
+                      <span>Edição</span>
+                    </button>
                     <button mat-menu-item (click)="deleteDialog(row)">
-                     <mat-icon>delete_outline</mat-icon>
+                      <mat-icon color="primary">delete_outline</mat-icon>
                       <span>Apagar</span>
-                  </button>
+                    </button>
                 </mat-menu>
             </td>
         </ng-container>

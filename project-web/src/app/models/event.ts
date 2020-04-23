@@ -2,7 +2,8 @@ import { iLot } from "./lot";
 import { iSocialNetwork } from "./social-network";
 import { iSpeaker } from "./speaker";
 
-export interface iEvent {
+export class iEvent {
+  constructor() {}
   id: number;
   date: string;
   place: string;

@@ -13,6 +13,7 @@ import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatSortModule } from "@angular/material/sort";
 import { MatTableModule } from "@angular/material/table";
 import { MatInputModule } from "@angular/material/input";
+import {MatSelectModule} from '@angular/material/select';
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatIconModule } from "@angular/material/icon";
@@ -25,12 +26,14 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
+import { MatTabsModule } from "@angular/material/tabs";
 
 import { DateFormatPipe } from "./helpers/date-format.pipe";
 import { DateTimeFormatPipe } from "./helpers/date-time-format.pipe";
 import { LOCALE_ID } from "@angular/core";
 import { registerLocaleData } from "@angular/common";
 import localePt from "@angular/common/locales/pt";
+import { NgxCurrencyModule } from "ngx-currency";
 
 import { EventService } from "./services/event.service";
 import { AuthInterceptor } from "./auth/auth.interceptor";
@@ -47,7 +50,7 @@ import { TitleComponent } from "./pages/title/title.component";
 import { UserComponent } from "./pages/user/user.component";
 import { LoginUserComponent } from "./pages/user/login-user/login-user.component";
 import { RegisterUserComponent } from "./pages/user/register-user/register-user.component";
-import { EditEventComponent } from './pages/event/edit-event/edit-event.component';
+import { EditEventComponent } from "./pages/event/edit-event/edit-event.component";
 
 registerLocaleData(localePt);
 @NgModule({
@@ -70,6 +73,9 @@ registerLocaleData(localePt);
   ],
   exports: [],
   imports: [
+    NgxCurrencyModule,
+    MatSelectModule,
+    MatTabsModule,
     MatProgressBarModule,
     MatSnackBarModule,
     FlexLayoutModule,

@@ -57,6 +57,7 @@ namespace project.repository
                     .ThenInclude(s => s.Speaker);
             }
             query = query.OrderByDescending(d => d.Date)
+                         .AsNoTracking()
                          .Where(i => i.Id == EventId);
 
             return await query.FirstOrDefaultAsync();
